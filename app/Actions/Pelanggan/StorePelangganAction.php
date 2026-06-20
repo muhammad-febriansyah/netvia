@@ -9,19 +9,19 @@ use Illuminate\Support\Facades\DB;
 class StorePelangganAction
 {
     public function __construct(
-        private PelangganRepository $pelangganRepository,
+        private PelangganRepository $pelanggans,
         private GenerateKodePelangganAction $generateKode,
     ) {}
 
     /**
      * @param  array<string, mixed>  $data
      */
-    public function handle(array $data): Pelanggan
+    public function execute(array $data): Pelanggan
     {
         return DB::transaction(function () use ($data): Pelanggan {
-            $data['kode_pelanggan'] = $this->generateKode->handle();
+            $data['kode_pelanggan'] = $this->generateKode->execute();
 
-            return $this->pelangganRepository->create($data);
+            return $this->pelanggans->create($data);
         });
     }
 }

@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class UpdatePelangganAction
 {
-    public function __construct(private PelangganRepository $pelangganRepository) {}
+    public function __construct(private PelangganRepository $pelanggans) {}
 
     /**
      * @param  array<string, mixed>  $data
      */
-    public function handle(Pelanggan $pelanggan, array $data): Pelanggan
+    public function execute(Pelanggan $pelanggan, array $data): Pelanggan
     {
-        return DB::transaction(fn (): Pelanggan => $this->pelangganRepository->update($pelanggan, $data));
+        return DB::transaction(fn (): Pelanggan => $this->pelanggans->update($pelanggan, $data));
     }
 }

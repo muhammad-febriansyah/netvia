@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class DeletePelangganAction
 {
-    public function __construct(private PelangganRepository $pelangganRepository) {}
+    public function __construct(private PelangganRepository $pelanggans) {}
 
-    public function handle(Pelanggan $pelanggan): void
+    public function execute(Pelanggan $pelanggan): void
     {
-        DB::transaction(fn () => $this->pelangganRepository->delete($pelanggan));
+        DB::transaction(fn () => $this->pelanggans->delete($pelanggan));
     }
 }

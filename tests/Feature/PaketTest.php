@@ -27,6 +27,20 @@ it('lists pakets via the server-side datatable endpoint', function () {
         ->assertJsonPath('recordsTotal', 3);
 });
 
+it('renders the paket index, create, and edit pages', function () {
+    $this->withoutVite();
+    $paket = Paket::factory()->create();
+
+    $this->actingAs($this->admin)->get(route('paket.index'))
+        ->assertOk()->assertSee('Daftar Paket')->assertSee('Tambah Paket');
+
+    $this->actingAs($this->admin)->get(route('paket.create'))
+        ->assertOk()->assertSee('Nama Paket')->assertSee('Harga Bulanan');
+
+    $this->actingAs($this->admin)->get(route('paket.edit', $paket))
+        ->assertOk()->assertSee('Edit Paket')->assertSee($paket->nama);
+});
+
 it('stores a paket and parses the masked rupiah input to an integer', function () {
     $this->actingAs($this->admin)
         ->post(route('paket.store'), [

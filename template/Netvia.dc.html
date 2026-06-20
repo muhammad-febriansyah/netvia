@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Poppins',system-ui,sans-serif;color:#041933;background:#F7F8FD;-webkit-font-smoothing:antialiased}
+  input,button,textarea,select{font-family:inherit}
+  input::placeholder,textarea::placeholder{color:#94A3B8}
+  button{border:none;background:none;cursor:pointer}
+  a{text-decoration:none;color:inherit}
+  @keyframes nvspin{to{transform:rotate(360deg)}}
+  @keyframes nvtoast{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+  @keyframes nvpop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes nvpulse{0%,100%{opacity:.55}50%{opacity:1}}
+  ::-webkit-scrollbar{height:9px;width:9px}
+  ::-webkit-scrollbar-thumb{background:#cdd7e3;border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:flex;background:#F7F8FD">
+  <!-- left brand panel -->
+  <div style="flex:1;display:none;position:relative;overflow:hidden;background:#2547F9" data-screen-label="Login">
+  </div>
+  <div style="flex:1.05;min-height:100vh;position:relative;overflow:hidden;background:#2547F9;display:flex;flex-direction:column;justify-content:space-between;padding:56px;color:#fff">
+    <div style="display:flex;align-items:center;gap:12px">
+      <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+        <g stroke="rgba(255,255,255,.85)" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M27 12 a7 7 0 0 1 11 0"/><path d="M30.5 16 a3.2 3.2 0 0 1 4 0"/>
+        </g>
+        <path d="M10 38 V14 L33 37 V13" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="10" cy="38" r="3.6" fill="#9bf3ff"/>
+        <circle cx="33" cy="13" r="3.6" fill="#fff"/>
+      </svg>
+      <span style="font-size:24px;font-weight:600;letter-spacing:-.5px">{{ company }}</span>
+    </div>
+    <div style="max-width:440px">
+      <div style="font-size:36px;font-weight:600;line-height:1.2;letter-spacing:-.5px">Tagihan & reminder langganan, otomatis.</div>
+      <p style="margin:18px 0 0;font-size:15px;line-height:1.7;color:rgba(255,255,255,.85);font-weight:400">Kelola pelanggan, terbitkan tagihan, dan kirim pengingat WhatsApp untuk jaringan internet RT-RW Anda — semua dalam satu dasbor.</p>
+    </div>
+    <div style="display:flex;gap:28px;font-size:13px;color:rgba(255,255,255,.8);font-weight:500">
+      <span>1.248 pelanggan aktif</span><span>·</span><span>QRIS &amp; pembayaran manual</span><span>·</span><span>Reminder otomatis</span>
+    </div>
+  </div>
+  <!-- right form -->
+  <div style="flex:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px">
+    <div style="width:100%;max-width:380px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:30px">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+          <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2547F9"/><stop offset="1" stop-color="#2547F9"/></linearGradient></defs>
+          <g stroke="#0CD0EE" stroke-width="3" stroke-linecap="round" fill="none"><path d="M27 12 a7 7 0 0 1 11 0"/><path d="M30.5 16 a3.2 3.2 0 0 1 4 0"/></g>
+          <path d="M10 38 V14 L33 37 V13" stroke="url(#lg1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="10" cy="38" r="3.6" fill="#0CD0EE"/><circle cx="33" cy="13" r="3.6" fill="#2547F9"/>
+        </svg>
+        <span style="font-size:22px;font-weight:600;color:#041933;letter-spacing:-.5px">{{ company }}</span>
+      </div>
+      <h1 style="margin:0;font-size:26px;font-weight:600;color:#041933;letter-spacing:-.3px">Masuk ke dasbor</h1>
+      <p style="margin:8px 0 28px;font-size:14px;color:#64748B;font-weight:400">Silakan masuk dengan akun admin Anda.</p>
+
+      <label style="display:block;font-size:13px;font-weight:500;color:#041933;margin-bottom:7px">Email <span style="color:#EF4444">*</span></label>
+      <div style="position:relative;margin-bottom:18px">
+        <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </span>
+        <input type="email" placeholder="cth: admin@netvia.id" style="width:100%;height:46px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px 0 40px;font-size:14px;color:#041933;outline:none;background:#fff" style-focus="border-color:#2547F9;box-shadow:0 0 0 3px #ECEFFE;width:100%;height:46px;border-radius:10px;padding:0 14px 0 40px;font-size:14px;outline:none;background:#fff"/>
+      </div>
+
+      <label style="display:block;font-size:13px;font-weight:500;color:#041933;margin-bottom:7px">Password <span style="color:#EF4444">*</span></label>
+      <div style="position:relative;margin-bottom:14px">
+        <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <input type="password" placeholder="••••••••" style="width:100%;height:46px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px 0 40px;font-size:14px;color:#041933;outline:none;background:#fff" style-focus="border-color:#2547F9;box-shadow:0 0 0 3px #ECEFFE;width:100%;height:46px;border-radius:10px;padding:0 14px 0 40px;font-size:14px;outline:none;background:#fff"/>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748B;font-weight:400;cursor:pointer"><input type="checkbox" style="accent-color:#2547F9;width:15px;height:15px"/> Ingat saya</label>
+        <a style="font-size:13px;color:#2547F9;font-weight:500">Lupa password?</a>
+      </div>
+
+      <button onClick="{{ goDashboard }}" style="width:100%;height:48px;border-radius:10px;background:#2547F9;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 10px rgba(37,71,249,.16)" style-hover="width:100%;height:48px;border-radius:10px;background:#1B37C9;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 10px rgba(37,71,249,.16)">
+        Masuk
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p style="margin:22px 0 0;text-align:center;font-size:12.5px;color:#94A3B8;font-weight:400">Demo prototipe · klik Masuk untuk melanjutkan</p>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;min-height:100vh;background:#F7F8FD">
+  <!-- SIDEBAR -->
+  <aside style="width:{{ sbWidth }};min-width:{{ sbWidth }};max-width:{{ sbWidth }};flex:none;min-height:100vh;display:flex;flex-direction:column;padding:20px 14px;position:sticky;top:0;height:100vh;background:{{ sbBg }};border-right:1px solid {{ sbBorder }};transition:width .22s ease;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 8px 22px;justify-content:{{ navJustify }}">
+      <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+        <defs><linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2547F9"/><stop offset="1" stop-color="#2547F9"/></linearGradient></defs>
+        <g stroke="#0CD0EE" stroke-width="3" stroke-linecap="round" fill="none"><path d="M27 12 a7 7 0 0 1 11 0"/><path d="M30.5 16 a3.2 3.2 0 0 1 4 0"/></g>
+        <path d="M10 38 V14 L33 37 V13" stroke="url(#sg1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="10" cy="38" r="3.6" fill="#0CD0EE"/><circle cx="33" cy="13" r="3.6" fill="#2547F9"/>
+      </svg>
+      <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font-size:20px;font-weight:600;letter-spacing:-.4px;color:{{ sbLogo }};white-space:nowrap">{{ company }}</span></sc-if>
+    </div>
+    <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;font-weight:600;letter-spacing:.6px;color:{{ sbMuted }};padding:8px 10px 6px;opacity:.8">MENU</div></sc-if>
+    <nav style="display:flex;flex-direction:column;gap:4px">
+      <a onClick="{{ goDashboard }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;position:relative;justify-content:{{ navJustify }};background:{{ navDashBg }};color:{{ navDashColor }}" title="Dashboard">
+        <sc-if value="{{ aDash }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:3px;background:#2547F9"></span></sc-if>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="white-space:nowrap">Dashboard</span></sc-if>
+      </a>
+      <a onClick="{{ goCustomers }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;position:relative;justify-content:{{ navJustify }};background:{{ navCustBg }};color:{{ navCustColor }}" title="Pelanggan">
+        <sc-if value="{{ aCust }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:3px;background:#2547F9"></span></sc-if>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="white-space:nowrap">Pelanggan</span></sc-if>
+      </a>
+      <a onClick="{{ goBills }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;position:relative;justify-content:{{ navJustify }};background:{{ navBillsBg }};color:{{ navBillsColor }}" title="Tagihan">
+        <sc-if value="{{ aBills }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:3px;background:#2547F9"></span></sc-if>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="white-space:nowrap">Tagihan</span></sc-if>
+      </a>
+      <a onClick="{{ soon }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;position:relative;justify-content:{{ navJustify }};background:{{ navPkgBg }};color:{{ navPkgColor }}" title="Paket">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="white-space:nowrap">Paket</span></sc-if>
+      </a>
+      <a onClick="{{ soon }}" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;position:relative;justify-content:{{ navJustify }};background:{{ navSetBg }};color:{{ navSetColor }}" title="Pengaturan">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="white-space:nowrap">Pengaturan</span></sc-if>
+      </a>
+    </nav>
+    <div style="margin-top:auto;border-radius:14px;padding:16px;background:#2547F9;color:#fff;display:{{ themeDisplay }}">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.391z"/></svg></span>
+        <div><div style="font-size:13px;font-weight:600">Butuh bantuan?</div><div style="font-size:11.5px;color:rgba(255,255,255,.82);font-weight:400">Hubungi tim kami</div></div>
+      </div>
+      <a href="https://wa.me/6281290001234" target="_blank" style="margin-top:12px;height:36px;border-radius:9px;background:#fff;color:#2547F9;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>0812-9000-1234</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <!-- TOPBAR -->
+    <header style="height:68px;flex:none;display:flex;align-items:center;gap:16px;padding:0 28px;background:#fff;border-bottom:1px solid #EDF0F6;position:sticky;top:0;z-index:20">
+      <button onClick="{{ toggleSidebar }}" title="Tampil / sembunyikan menu" style="width:42px;height:42px;border-radius:10px;background:#F7F8FD;display:flex;align-items:center;justify-content:center;color:#475569;flex:none" style-hover="width:42px;height:42px;border-radius:10px;background:#ECEFFE;display:flex;align-items:center;justify-content:center;color:#2547F9;flex:none"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg></button>
+      <div style="position:relative;flex:1;max-width:420px">
+        <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+        <input placeholder="Cari pelanggan, tagihan, no. WA…" style="width:100%;height:42px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px 0 40px;font-size:13.5px;background:#F7F8FD;outline:none" style-focus="width:100%;height:42px;border-radius:10px;padding:0 14px 0 40px;font-size:13.5px;background:#fff;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <button onClick="{{ soon }}" style="position:relative;width:42px;height:42px;border-radius:10px;background:#F7F8FD;display:flex;align-items:center;justify-content:center;color:#475569" style-hover="position:relative;width:42px;height:42px;border-radius:10px;background:#ECEFFE;display:flex;align-items:center;justify-content:center;color:#2547F9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span style="position:absolute;top:7px;right:8px;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:#EF4444;color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;border:2px solid #fff">5</span>
+        </button>
+        <div style="width:1px;height:28px;background:#EDF0F6;margin:0 4px"></div>
+        <button style="display:flex;align-items:center;gap:10px;padding:5px 8px 5px 5px;border-radius:10px" style-hover="display:flex;align-items:center;gap:10px;padding:5px 8px 5px 5px;border-radius:10px;background:#F7F8FD">
+          <span style="width:34px;height:34px;border-radius:9px;background:#2547F9;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">RA</span>
+          <span style="text-align:left;line-height:1.2"><span style="display:block;font-size:13px;font-weight:600;color:#041933">Rangga Admin</span><span style="display:block;font-size:11px;color:#94A3B8;font-weight:400">Super Admin</span></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <button onClick="{{ goLogin }}" title="Keluar" style="width:42px;height:42px;border-radius:10px;background:#F7F8FD;display:flex;align-items:center;justify-content:center;color:#475569" style-hover="width:42px;height:42px;border-radius:10px;background:#FEE2E2;display:flex;align-items:center;justify-content:center;color:#B91C1C">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main style="flex:1;padding:28px;min-width:0">
+
+      <!-- ============ DASHBOARD ============ -->
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Dashboard">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+          <div>
+            <h1 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.4px">Dashboard</h1>
+            <p style="margin:6px 0 0;font-size:14px;color:#64748B;font-weight:400">Ringkasan tagihan & langganan · Juni 2026</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:12px;color:#94A3B8;font-weight:500">Tata letak</span>
+            <div style="display:flex;gap:4px;padding:4px;background:#fff;border:1px solid #EDF0F6;border-radius:10px">
+              <button onClick="{{ setL1 }}" style="width:30px;height:28px;border-radius:7px;font-size:12px;font-weight:600;background:{{ l1Bg }};color:{{ l1Color }}">1</button>
+              <button onClick="{{ setL2 }}" style="width:30px;height:28px;border-radius:7px;font-size:12px;font-weight:600;background:{{ l2Bg }};color:{{ l2Color }}">2</button>
+              <button onClick="{{ setL3 }}" style="width:30px;height:28px;border-radius:7px;font-size:12px;font-weight:600;background:{{ l3Bg }};color:{{ l3Color }}">3</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI : LAYOUT 1 -->
+        <sc-if value="{{ isL1 }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:20px">
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="width:40px;height:40px;border-radius:11px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div style="font-size:12.5px;color:#64748B;font-weight:500">Pelanggan Aktif</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-.5px;margin-top:2px">1.248</div>
+            <div style="font-size:12px;color:#15803D;font-weight:500;margin-top:4px">+32 bulan ini</div>
+          </div>
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="width:40px;height:40px;border-radius:11px;background:#E2F8FC;color:#0891b2;display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg></div>
+            <div style="font-size:12.5px;color:#64748B;font-weight:500">Tagihan Bulan Ini</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-.5px;margin-top:2px">1.310</div>
+            <div style="font-size:12px;color:#64748B;font-weight:500;margin-top:4px">Total Rp 262 jt</div>
+          </div>
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="width:40px;height:40px;border-radius:11px;background:#DCFCE7;color:#15803D;display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></div>
+            <div style="font-size:12.5px;color:#64748B;font-weight:500">Sudah Dibayar</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-.5px;margin-top:2px">1.087</div>
+            <div style="font-size:12px;color:#15803D;font-weight:500;margin-top:4px">83% terbayar</div>
+          </div>
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="width:40px;height:40px;border-radius:11px;background:#FEE2E2;color:#B91C1C;display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+            <div style="font-size:12.5px;color:#64748B;font-weight:500">Outstanding</div>
+            <div style="font-size:24px;font-weight:700;letter-spacing:-.5px;margin-top:2px;white-space:nowrap">Rp 38,2 jt</div>
+            <div style="font-size:12px;color:#B45309;font-weight:500;margin-top:4px">223 tagihan</div>
+          </div>
+          <div style="border-radius:14px;padding:18px;background:#2547F9;color:#fff;box-shadow:0 2px 8px rgba(37,71,249,.12);position:relative;overflow:hidden">
+            <div style="position:absolute;right:-20px;top:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.12)"></div>
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><path d="M3 5v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,.88);font-weight:500">Pendapatan Bulan Ini</div>
+            <div style="font-size:24px;font-weight:700;letter-spacing:-.5px;margin-top:2px;white-space:nowrap">Rp 187,45 jt</div>
+            <div style="font-size:11.5px;color:#fff;font-weight:500;margin-top:4px;white-space:nowrap">▲ 12,4% vs bln lalu</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- KPI : LAYOUT 2 -->
+        <sc-if value="{{ isL2 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:1.2fr 2fr;gap:16px;margin-bottom:20px">
+          <div style="border-radius:14px;padding:24px;background:#2547F9;color:#fff;box-shadow:0 2px 8px rgba(37,71,249,.12);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="position:absolute;right:-30px;bottom:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.1)"></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><path d="M3 5v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></span><span style="font-size:14px;font-weight:500;color:rgba(255,255,255,.9)">Pendapatan Bulan Ini</span></div>
+            <div style="position:relative">
+              <div style="font-size:40px;font-weight:700;letter-spacing:-1px;line-height:1.1">Rp 187,45<span style="font-size:22px;font-weight:600"> jt</span></div>
+              <div style="font-size:13px;color:#fff;font-weight:500;margin-top:8px">▲ 12,4% dibanding Mei 2026</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(16,24,64,.035);display:flex;gap:13px;align-items:center"><span style="width:42px;height:42px;border-radius:11px;background:#ECEFFE;color:#2547F9;flex:none;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><div style="font-size:12px;color:#64748B;font-weight:500">Pelanggan Aktif</div><div style="font-size:23px;font-weight:700;letter-spacing:-.4px">1.248</div></div></div>
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(16,24,64,.035);display:flex;gap:13px;align-items:center"><span style="width:42px;height:42px;border-radius:11px;background:#E2F8FC;color:#0891b2;flex:none;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/></svg></span><div><div style="font-size:12px;color:#64748B;font-weight:500">Tagihan Bln Ini</div><div style="font-size:23px;font-weight:700;letter-spacing:-.4px">1.310</div></div></div>
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(16,24,64,.035);display:flex;gap:13px;align-items:center"><span style="width:42px;height:42px;border-radius:11px;background:#DCFCE7;color:#15803D;flex:none;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></span><div><div style="font-size:12px;color:#64748B;font-weight:500">Sudah Dibayar</div><div style="font-size:23px;font-weight:700;letter-spacing:-.4px">1.087</div></div></div>
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(16,24,64,.035);display:flex;gap:13px;align-items:center"><span style="width:42px;height:42px;border-radius:11px;background:#FEE2E2;color:#B91C1C;flex:none;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><div><div style="font-size:12px;color:#64748B;font-weight:500">Outstanding</div><div style="font-size:23px;font-weight:700;letter-spacing:-.4px">Rp 38,2 jt</div></div></div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- KPI : LAYOUT 3 -->
+        <sc-if value="{{ isL3 }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,64,.035);display:flex;flex-wrap:wrap;margin-bottom:20px;overflow:hidden">
+          <div style="flex:1;min-width:160px;padding:18px 22px;border-right:1px solid #EDF0F6"><div style="font-size:12px;color:#64748B;font-weight:500">Pelanggan Aktif</div><div style="font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:4px">1.248</div><div style="font-size:11.5px;color:#15803D;font-weight:500;margin-top:2px">+32 bln ini</div></div>
+          <div style="flex:1;min-width:160px;padding:18px 22px;border-right:1px solid #EDF0F6"><div style="font-size:12px;color:#64748B;font-weight:500">Tagihan Bln Ini</div><div style="font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:4px">1.310</div><div style="font-size:11.5px;color:#64748B;font-weight:500;margin-top:2px">Rp 262 jt</div></div>
+          <div style="flex:1;min-width:160px;padding:18px 22px;border-right:1px solid #EDF0F6"><div style="font-size:12px;color:#64748B;font-weight:500">Sudah Dibayar</div><div style="font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:4px">1.087</div><div style="font-size:11.5px;color:#15803D;font-weight:500;margin-top:2px">83%</div></div>
+          <div style="flex:1;min-width:160px;padding:18px 22px;border-right:1px solid #EDF0F6"><div style="font-size:12px;color:#64748B;font-weight:500">Outstanding</div><div style="font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:4px">Rp 38,2 jt</div><div style="font-size:11.5px;color:#B45309;font-weight:500;margin-top:2px">223 tagihan</div></div>
+          <div style="flex:1.2;min-width:200px;padding:18px 22px;background:#2547F9;color:#fff"><div style="font-size:12px;color:rgba(255,255,255,.9);font-weight:500">Pendapatan Bln Ini</div><div style="font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:4px">Rp 187,45 jt</div><div style="font-size:11.5px;color:#fff;font-weight:500;margin-top:2px">▲ 12,4%</div></div>
+        </div>
+        </sc-if>
+
+        <!-- CHART + PANELS (shared) -->
+        <div style="display:grid;grid-template-columns:1.85fr 1fr;gap:20px">
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:22px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-size:16px;font-weight:600">Tren Pendapatan</div><div style="font-size:12.5px;color:#64748B;font-weight:400;margin-top:2px">12 bulan terakhir (juta Rupiah)</div></div>
+              <div style="display:flex;align-items:center;gap:14px;font-size:12px;color:#64748B;font-weight:500"><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#2547F9"></span>Pendapatan</span><span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;background:#9DB0FF"></span>Tren</span></div>
+            </div>
+            <svg viewBox="0 0 760 250" style="width:100%;height:auto;overflow:visible">
+              <defs>
+                <linearGradient id="barg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2547F9"/><stop offset="1" stop-color="#2547F9"/></linearGradient>
+                <linearGradient id="areag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(37,71,249,.10)"/><stop offset="1" stop-color="rgba(37,71,249,0)"/></linearGradient>
+              </defs>
+              <line x1="0" y1="30" x2="760" y2="30" stroke="#F1F5F9" stroke-width="1"/>
+              <line x1="0" y1="125" x2="760" y2="125" stroke="#F1F5F9" stroke-width="1"/>
+              <line x1="0" y1="220" x2="760" y2="220" stroke="#EDF0F6" stroke-width="1"/>
+              <polygon points="{{ chartArea }}" fill="url(#areag)"/>
+              <sc-for list="{{ chartBars }}" as="b" hint-placeholder-count="12">
+                <rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" rx="5" fill="url(#barg)"/>
+                <text x="{{ b.cx }}" y="240" text-anchor="middle" font-size="11" fill="#94A3B8" font-family="Poppins">{{ b.month }}</text>
+              </sc-for>
+              <polyline points="{{ chartLine }}" fill="none" stroke="#9DB0FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <sc-for list="{{ chartBars }}" as="b" hint-placeholder-count="12">
+                <circle cx="{{ b.cx }}" cy="{{ b.cy }}" r="3.2" fill="#fff" stroke="#9DB0FF" stroke-width="2"/>
+              </sc-for>
+            </svg>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:30px;height:30px;border-radius:8px;background:#FEF3C7;color:#B45309;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><span style="font-size:15px;font-weight:600">Jatuh Tempo Terdekat</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <sc-for list="{{ dueSoon }}" as="d" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:9px" style-hover="display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:9px;background:#F7F8FD">
+                    <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</div><div style="font-size:11.5px;color:#94A3B8;font-weight:400">{{ d.when }}</div></div>
+                    <div style="font-size:12.5px;font-weight:600;color:#041933">{{ d.amountText }}</div>
+                    <button onClick="{{ d.onRemind }}" title="Kirim reminder" style="width:30px;height:30px;border-radius:8px;background:#ECEFFE;color:#2547F9;flex:none;display:flex;align-items:center;justify-content:center" style-hover="width:30px;height:30px;border-radius:8px;background:#2547F9;color:#fff;flex:none;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0 0 .94l7.9 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.85 2.15-10.94 10.94"/></svg></button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:30px;height:30px;border-radius:8px;background:#FEE2E2;color:#B91C1C;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span style="font-size:15px;font-weight:600">Lewat Tempo</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <sc-for list="{{ overdue }}" as="d" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:9px" style-hover="display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:9px;background:#F7F8FD">
+                    <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</div><div style="font-size:11.5px;color:#B91C1C;font-weight:500">{{ d.late }}</div></div>
+                    <div style="font-size:12.5px;font-weight:600;color:#041933">{{ d.amountText }}</div>
+                    <button onClick="{{ d.onRemind }}" title="Kirim reminder" style="width:30px;height:30px;border-radius:8px;background:#ECEFFE;color:#2547F9;flex:none;display:flex;align-items:center;justify-content:center" style-hover="width:30px;height:30px;border-radius:8px;background:#2547F9;color:#fff;flex:none;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0 0 .94l7.9 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.85 2.15-10.94 10.94"/></svg></button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ CUSTOMERS ============ -->
+      <sc-if value="{{ isCustomers }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Daftar Pelanggan">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+          <div><h1 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.4px">Pelanggan</h1><p style="margin:6px 0 0;font-size:14px;color:#64748B;font-weight:400">Kelola data pelanggan & langganan internet</p></div>
+          <button onClick="{{ newCustomer }}" style="height:42px;padding:0 18px;border-radius:10px;background:#2547F9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)" style-hover="height:42px;padding:0 18px;border-radius:10px;background:#1B37C9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Tambah Pelanggan</button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+          <!-- toolbar -->
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #EDF0F6">
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#64748B;font-weight:400">Tampilkan <select style="height:34px;border:1px solid #EDF0F6;border-radius:8px;padding:0 8px;font-size:13px;color:#041933;background:#fff;outline:none"><option>10</option><option>25</option><option>50</option></select> entri</div>
+            <!-- pkg filter -->
+            <div style="position:relative;margin-left:4px">
+              <button onClick="{{ tgPkgFilter }}" style="height:34px;min-width:150px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:#041933;font-weight:500"><span>{{ pkgFilterLabel }}</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+              <sc-if value="{{ ddPkgFilter }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:40px;left:0;width:230px;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                  <div style="position:relative;margin-bottom:6px"><span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input value="{{ ddSearch }}" onInput="{{ onDdSearch }}" placeholder="Cari…" style="width:100%;height:34px;border:1px solid #EDF0F6;border-radius:8px;padding:0 10px 0 30px;font-size:13px;outline:none" style-focus="width:100%;height:34px;border-radius:8px;padding:0 10px 0 30px;font-size:13px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+                  <div style="max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:1px">
+                    <sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.onPick }}" style="text-align:left;padding:8px 10px;border-radius:7px;font-size:13px;color:#334155;font-weight:500" style-hover="text-align:left;padding:8px 10px;border-radius:7px;font-size:13px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+            <!-- status filter -->
+            <div style="position:relative">
+              <button onClick="{{ tgStatusFilter }}" style="height:34px;min-width:150px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:#041933;font-weight:500"><span>{{ statusFilterLabel }}</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+              <sc-if value="{{ ddStatusFilter }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:40px;left:0;width:200px;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                  <div style="position:relative;margin-bottom:6px"><span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input value="{{ ddSearch }}" onInput="{{ onDdSearch }}" placeholder="Cari…" style="width:100%;height:34px;border:1px solid #EDF0F6;border-radius:8px;padding:0 10px 0 30px;font-size:13px;outline:none" style-focus="width:100%;height:34px;border-radius:8px;padding:0 10px 0 30px;font-size:13px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+                  <div style="max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:1px">
+                    <sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.onPick }}" style="text-align:left;padding:8px 10px;border-radius:7px;font-size:13px;color:#334155;font-weight:500" style-hover="text-align:left;padding:8px 10px;border-radius:7px;font-size:13px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+            <div style="position:relative;margin-left:auto;min-width:240px">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+              <input value="{{ custSearch }}" onInput="{{ onCustSearch }}" placeholder="Cari pelanggan…" style="width:100%;height:38px;border:1px solid #EDF0F6;border-radius:9px;padding:0 12px 0 36px;font-size:13px;outline:none;background:#fff" style-focus="width:100%;height:38px;border-radius:9px;padding:0 12px 0 36px;font-size:13px;outline:none;background:#fff;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/>
+            </div>
+          </div>
+          <!-- table -->
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;min-width:860px">
+              <thead><tr style="background:#F8FAFC">
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Kode</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Nama</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">No. WA</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Paket</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Jatuh Tempo</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Status</th>
+                <th style="text-align:right;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Aksi</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ customers }}" as="c" hint-placeholder-count="6">
+                <tr style="border-top:1px solid #F1F5F9" style-hover="border-top:1px solid #F1F5F9;background:#FAFBFD">
+                  <td style="padding:13px 18px;font-size:13px;font-weight:600;color:#2547F9">{{ c.code }}</td>
+                  <td style="padding:13px 18px;font-size:13.5px;font-weight:500;color:#041933">{{ c.name }}</td>
+                  <td style="padding:13px 18px;font-size:13px;color:#475569;font-weight:400">{{ c.wa }}</td>
+                  <td style="padding:13px 18px;font-size:13px;color:#475569;font-weight:400">{{ c.pkg }}</td>
+                  <td style="padding:13px 18px;font-size:13px;color:#475569;font-weight:400">{{ c.dueText }}</td>
+                  <td style="padding:13px 18px"><span style="display:inline-flex;padding:4px 11px;border-radius:99px;font-size:12px;font-weight:600;color:{{ c.statusColor }};background:{{ c.statusBg }}">{{ c.statusLabel }}</span></td>
+                  <td style="padding:13px 18px"><div style="display:flex;gap:6px;justify-content:flex-end">
+                    <button onClick="{{ c.onEdit }}" title="Detail" style="width:32px;height:32px;border-radius:8px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center" style-hover="width:32px;height:32px;border-radius:8px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.06 12.34a1.7 1.7 0 0 1 0-.68 10.94 10.94 0 0 1 19.88 0 1.7 1.7 0 0 1 0 .68 10.94 10.94 0 0 1-19.88 0Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button onClick="{{ c.onEdit }}" title="Edit" style="width:32px;height:32px;border-radius:8px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center" style-hover="width:32px;height:32px;border-radius:8px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+                    <button onClick="{{ c.onDelete }}" title="Hapus" style="width:32px;height:32px;border-radius:8px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center" style-hover="width:32px;height:32px;border-radius:8px;background:#FEE2E2;color:#B91C1C;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div></td>
+                </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <!-- pagination -->
+          <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #EDF0F6">
+            <div style="font-size:13px;color:#64748B;font-weight:400">Menampilkan <b style="color:#041933;font-weight:600">{{ custCount }}</b> dari 1.248 pelanggan</div>
+            <div style="display:flex;gap:6px">
+              <button style="height:34px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;font-size:13px;color:#94A3B8;font-weight:500">Sebelumnya</button>
+              <button style="width:34px;height:34px;border-radius:8px;background:#2547F9;color:#fff;font-size:13px;font-weight:600">1</button>
+              <button style="width:34px;height:34px;border-radius:8px;background:#fff;border:1px solid #EDF0F6;color:#475569;font-size:13px;font-weight:500">2</button>
+              <button style="width:34px;height:34px;border-radius:8px;background:#fff;border:1px solid #EDF0F6;color:#475569;font-size:13px;font-weight:500">3</button>
+              <button style="height:34px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;font-size:13px;color:#475569;font-weight:500">Berikutnya</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ CUSTOMER FORM ============ -->
+      <sc-if value="{{ isCustomerForm }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Form Pelanggan" style="max-width:860px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#94A3B8;font-weight:500;margin-bottom:14px"><a onClick="{{ goCustomers }}" style="color:#2547F9">Pelanggan</a><span>/</span><span style="color:#64748B">{{ formTitle }}</span></div>
+        <h1 style="margin:0 0 24px;font-size:26px;font-weight:600;letter-spacing:-.4px">{{ formTitle }}</h1>
+
+        <!-- section: data pelanggan -->
+        <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,64,.035);margin-bottom:20px">
+          <div style="padding:18px 22px;border-bottom:1px solid #EDF0F6;display:flex;align-items:center;gap:10px"><span style="width:32px;height:32px;border-radius:9px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><div style="font-size:16px;font-weight:600">Data Pelanggan</div><div style="font-size:12.5px;color:#64748B;font-weight:400">Informasi kontak & alamat pemasangan</div></div></div>
+          <div style="padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Nama Pelanggan <span style="color:#EF4444">*</span></label><input value="{{ formName }}" placeholder="cth: Budi Santoso" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;font-size:14px;outline:none" style-focus="width:100%;height:44px;border-radius:10px;padding:0 14px;font-size:14px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">No. WhatsApp <span style="color:#EF4444">*</span></label><input value="{{ formWa }}" placeholder="cth: 0812-3456-7890" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;font-size:14px;outline:none" style-focus="width:100%;height:44px;border-radius:10px;padding:0 14px;font-size:14px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Email</label><input placeholder="cth: budi@email.com" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;font-size:14px;outline:none" style-focus="width:100%;height:44px;border-radius:10px;padding:0 14px;font-size:14px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">No. KTP</label><input placeholder="cth: 3201xxxxxxxxxxxx" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;font-size:14px;outline:none" style-focus="width:100%;height:44px;border-radius:10px;padding:0 14px;font-size:14px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+            <div style="grid-column:1/3"><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Alamat Pemasangan <span style="color:#EF4444">*</span></label><textarea placeholder="cth: Jl. Melati No. 12, RT 03/RW 05, Sukamaju" style="width:100%;height:80px;border:1px solid #EDF0F6;border-radius:10px;padding:11px 14px;font-size:14px;outline:none;resize:vertical;font-family:inherit" style-focus="width:100%;height:80px;border-radius:10px;padding:11px 14px;font-size:14px;outline:none;resize:vertical;font-family:inherit;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"></textarea></div>
+          </div>
+        </div>
+
+        <!-- section: langganan -->
+        <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,64,.035);margin-bottom:20px">
+          <div style="padding:18px 22px;border-bottom:1px solid #EDF0F6;display:flex;align-items:center;gap:10px"><span style="width:32px;height:32px;border-radius:9px;background:#E2F8FC;color:#0891b2;display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span><div><div style="font-size:16px;font-weight:600">Langganan</div><div style="font-size:12.5px;color:#64748B;font-weight:400">Paket, aktivasi & jadwal tagihan</div></div></div>
+          <div style="padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <!-- select2 paket -->
+            <div style="grid-column:1/3"><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Paket Langganan <span style="color:#EF4444">*</span></label>
+              <div style="position:relative">
+                <button onClick="{{ tgFormPkg }}" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#fff;font-size:14px;font-weight:500"><span style="color:#041933">{{ formPkgLabel }}</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                <sc-if value="{{ ddFormPkg }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:50px;left:0;right:0;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                    <div style="position:relative;margin-bottom:6px"><span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input value="{{ ddSearch }}" onInput="{{ onDdSearch }}" placeholder="Cari paket…" style="width:100%;height:38px;border:1px solid #EDF0F6;border-radius:8px;padding:0 12px 0 32px;font-size:13.5px;outline:none" style-focus="width:100%;height:38px;border-radius:8px;padding:0 12px 0 32px;font-size:13.5px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+                    <div style="display:flex;flex-direction:column;gap:1px">
+                      <sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onPick }}" style="text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;color:#334155;font-weight:500" style-hover="text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Biaya Bulanan <span style="color:#EF4444">*</span></label>
+              <div style="position:relative;display:flex;align-items:center;height:44px;border:1px solid #EDF0F6;border-radius:10px;overflow:hidden;background:#fff" style-focus-within="position:relative;display:flex;align-items:center;height:44px;border-radius:10px;overflow:hidden;background:#fff;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"><span style="padding:0 13px;height:100%;display:flex;align-items:center;background:#F1F5F9;color:#64748B;font-size:14px;font-weight:600;border-right:1px solid #EDF0F6">Rp</span><input placeholder="cth: 150.000" style="flex:1;height:100%;border:none;padding:0 14px;font-size:14px;outline:none;background:transparent"/></div>
+            </div>
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Tanggal Aktivasi <span style="color:#EF4444">*</span></label><input type="date" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;font-size:14px;outline:none;color:#475569" style-focus="width:100%;height:44px;border-radius:10px;padding:0 14px;font-size:14px;outline:none;color:#475569;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+            <!-- select2 jatuh tempo -->
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Tanggal Jatuh Tempo <span style="color:#EF4444">*</span></label>
+              <div style="position:relative">
+                <button onClick="{{ tgFormDue }}" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#fff;font-size:14px;font-weight:500"><span style="color:#041933">{{ formDueLabel }}</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                <sc-if value="{{ ddFormDue }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:50px;left:0;right:0;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                    <div style="position:relative;margin-bottom:6px"><span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input value="{{ ddSearch }}" onInput="{{ onDdSearch }}" placeholder="Cari tanggal…" style="width:100%;height:38px;border:1px solid #EDF0F6;border-radius:8px;padding:0 12px 0 32px;font-size:13.5px;outline:none" style-focus="width:100%;height:38px;border-radius:8px;padding:0 12px 0 32px;font-size:13.5px;outline:none;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/></div>
+                    <div style="max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:1px">
+                      <sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="6"><button onClick="{{ o.onPick }}" style="text-align:left;padding:9px 12px;border-radius:8px;font-size:13.5px;color:#334155;font-weight:500" style-hover="text-align:left;padding:9px 12px;border-radius:8px;font-size:13.5px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+            <!-- select2 status -->
+            <div><label style="display:block;font-size:13px;font-weight:500;margin-bottom:7px">Status <span style="color:#EF4444">*</span></label>
+              <div style="position:relative">
+                <button onClick="{{ tgFormStatus }}" style="width:100%;height:44px;border:1px solid #EDF0F6;border-radius:10px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#fff;font-size:14px;font-weight:500"><span style="color:#041933">{{ formStatusLabel }}</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+                <sc-if value="{{ ddFormStatus }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:50px;left:0;right:0;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                    <div style="display:flex;flex-direction:column;gap:1px">
+                      <sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.onPick }}" style="text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;color:#334155;font-weight:500" style-hover="text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:12px">
+          <button onClick="{{ goCustomers }}" style="height:44px;padding:0 20px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#475569;font-size:14px;font-weight:600" style-hover="height:44px;padding:0 20px;border-radius:10px;background:#F7F8FD;border:1px solid #EDF0F6;color:#041933;font-size:14px;font-weight:600">Batal</button>
+          <button onClick="{{ saveCustomer }}" style="height:44px;padding:0 22px;border-radius:10px;background:#2547F9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)" style-hover="height:44px;padding:0 22px;border-radius:10px;background:#1B37C9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>Simpan Pelanggan</button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ BILLS ============ -->
+      <sc-if value="{{ isBills }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Daftar Tagihan">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+          <div><h1 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.4px">Tagihan</h1><p style="margin:6px 0 0;font-size:14px;color:#64748B;font-weight:400">Semua tagihan langganan & status pembayaran</p></div>
+          <button onClick="{{ soon }}" style="height:42px;padding:0 18px;border-radius:10px;background:#2547F9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)" style-hover="height:42px;padding:0 18px;border-radius:10px;background:#1B37C9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Buat Tagihan</button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #EDF0F6">
+            <select style="height:38px;border:1px solid #EDF0F6;border-radius:9px;padding:0 12px;font-size:13px;color:#041933;background:#fff;outline:none;font-weight:500"><option>Juni 2026</option><option>Mei 2026</option><option>April 2026</option></select>
+            <div style="position:relative">
+              <button onClick="{{ tgStatusFilter }}" style="height:38px;min-width:150px;padding:0 12px;border:1px solid #EDF0F6;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:#041933;font-weight:500"><span>{{ statusFilterLabel }}</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+              <sc-if value="{{ ddStatusFilter }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:44px;left:0;width:200px;background:#fff;border:1px solid #EDF0F6;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,64,.08);z-index:40;padding:8px">
+                  <div style="display:flex;flex-direction:column;gap:1px"><sc-for list="{{ ddOptions }}" as="o" hint-placeholder-count="4"><button onClick="{{ o.onPick }}" style="text-align:left;padding:9px 12px;border-radius:8px;font-size:13.5px;color:#334155;font-weight:500" style-hover="text-align:left;padding:9px 12px;border-radius:8px;font-size:13.5px;color:#2547F9;font-weight:500;background:#ECEFFE">{{ o.label }}</button></sc-for></div>
+                </div>
+              </sc-if>
+            </div>
+            <div style="position:relative;margin-left:auto;min-width:240px">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#94A3B8;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+              <input value="{{ billSearch }}" onInput="{{ onBillSearch }}" placeholder="Cari no. tagihan / nama…" style="width:100%;height:38px;border:1px solid #EDF0F6;border-radius:9px;padding:0 12px 0 36px;font-size:13px;outline:none;background:#fff" style-focus="width:100%;height:38px;border-radius:9px;padding:0 12px 0 36px;font-size:13px;outline:none;background:#fff;border:1px solid #2547F9;box-shadow:0 0 0 3px #ECEFFE"/>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;min-width:880px">
+              <thead><tr style="background:#F8FAFC">
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">No. Tagihan</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Pelanggan</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Periode</th>
+                <th style="text-align:right;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Jumlah</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Jatuh Tempo</th>
+                <th style="text-align:left;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Status</th>
+                <th style="text-align:right;padding:13px 18px;font-size:11.5px;font-weight:600;color:#64748B;letter-spacing:.3px;text-transform:uppercase">Aksi</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ bills }}" as="b" hint-placeholder-count="6">
+                <tr style="border-top:1px solid #F1F5F9" style-hover="border-top:1px solid #F1F5F9;background:#FAFBFD">
+                  <td style="padding:13px 18px;font-size:12.5px;font-weight:600;color:#2547F9">{{ b.no }}</td>
+                  <td style="padding:13px 18px;font-size:13.5px;font-weight:500;color:#041933">{{ b.name }}</td>
+                  <td style="padding:13px 18px;font-size:13px;color:#475569;font-weight:400">{{ b.period }}</td>
+                  <td style="padding:13px 18px;font-size:13.5px;font-weight:600;color:#041933;text-align:right">{{ b.amountText }}</td>
+                  <td style="padding:13px 18px;font-size:13px;color:#475569;font-weight:400">{{ b.due }}</td>
+                  <td style="padding:13px 18px"><span style="display:inline-flex;padding:4px 11px;border-radius:99px;font-size:12px;font-weight:600;color:{{ b.statusColor }};background:{{ b.statusBg }}">{{ b.statusLabel }}</span></td>
+                  <td style="padding:13px 18px"><div style="display:flex;gap:6px;justify-content:flex-end">
+                    <button onClick="{{ b.onView }}" title="Detail" style="width:32px;height:32px;border-radius:8px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center" style-hover="width:32px;height:32px;border-radius:8px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.06 12.34a1.7 1.7 0 0 1 0-.68 10.94 10.94 0 0 1 19.88 0 1.7 1.7 0 0 1 0 .68 10.94 10.94 0 0 1-19.88 0Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button onClick="{{ b.onView }}" title="Kirim reminder" style="width:32px;height:32px;border-radius:8px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center" style-hover="width:32px;height:32px;border-radius:8px;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0 0 .94l7.9 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.85 2.15-10.94 10.94"/></svg></button>
+                  </div></td>
+                </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #EDF0F6">
+            <div style="font-size:13px;color:#64748B;font-weight:400">Menampilkan <b style="color:#041933;font-weight:600">{{ billCount }}</b> dari 1.310 tagihan</div>
+            <div style="display:flex;gap:6px">
+              <button style="height:34px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;font-size:13px;color:#94A3B8;font-weight:500">Sebelumnya</button>
+              <button style="width:34px;height:34px;border-radius:8px;background:#2547F9;color:#fff;font-size:13px;font-weight:600">1</button>
+              <button style="width:34px;height:34px;border-radius:8px;background:#fff;border:1px solid #EDF0F6;color:#475569;font-size:13px;font-weight:500">2</button>
+              <button style="height:34px;padding:0 12px;border:1px solid #EDF0F6;border-radius:8px;background:#fff;font-size:13px;color:#475569;font-weight:500">Berikutnya</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ BILL DETAIL ============ -->
+      <sc-if value="{{ isBillDetail }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Detail Tagihan" style="max-width:1000px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#94A3B8;font-weight:500;margin-bottom:14px"><a onClick="{{ goBills }}" style="color:#2547F9">Tagihan</a><span>/</span><span style="color:#64748B">{{ sel.no }}</span></div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <h1 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-.4px">{{ sel.no }}</h1>
+            <span style="display:inline-flex;padding:5px 13px;border-radius:99px;font-size:12.5px;font-weight:600;color:{{ selStatusColor }};background:{{ selStatusBg }}">{{ selStatusLabel }}</span>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ copyLink }}" style="height:40px;padding:0 16px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#2547F9;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px" style-hover="height:40px;padding:0 16px;border-radius:10px;background:#ECEFFE;border:1px solid #EDF0F6;color:#1B37C9;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Salin Link</button>
+            <button onClick="{{ goPublic }}" style="height:40px;padding:0 16px;border-radius:10px;background:#041933;color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px" style-hover="height:40px;padding:0 16px;border-radius:10px;background:#0a2547;color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Buka Halaman Publik</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <!-- amount card -->
+            <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:24px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
+                <div>
+                  <div style="font-size:12.5px;color:#64748B;font-weight:500">Total Tagihan</div>
+                  <div style="font-size:38px;font-weight:700;letter-spacing:-1px;margin-top:2px">{{ selAmountText }}</div>
+                  <div style="font-size:13px;color:#64748B;font-weight:400;margin-top:4px">Jatuh tempo {{ sel.due }}</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:12.5px;color:#64748B;font-weight:500">Pelanggan</div>
+                  <div style="font-size:16px;font-weight:600;margin-top:2px">{{ sel.name }}</div>
+                  <div style="font-size:13px;color:#64748B;font-weight:400;margin-top:2px">{{ sel.period }}</div>
+                </div>
+              </div>
+              <div style="height:1px;background:#EDF0F6;margin:20px 0"></div>
+              <!-- snapshot -->
+              <div style="font-size:13px;font-weight:600;color:#041933;margin-bottom:12px">Rincian Paket (snapshot)</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#F7F8FD;border-radius:11px">
+                <div style="display:flex;align-items:center;gap:12px"><span style="width:40px;height:40px;border-radius:11px;background:#2547F9;color:#fff;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span><div><div style="font-size:14px;font-weight:600">{{ sel.pkg }}</div><div style="font-size:12.5px;color:#64748B;font-weight:400">Langganan bulanan · Internet unlimited</div></div></div>
+                <div style="font-size:15px;font-weight:700">{{ selAmountText }}</div>
+              </div>
+              <!-- actions -->
+              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px">
+                <button onClick="{{ openQris }}" style="height:44px;padding:0 18px;border-radius:10px;background:#2547F9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)" style-hover="height:44px;padding:0 18px;border-radius:10px;background:#1B37C9;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 2px 6px rgba(37,71,249,.14)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>Bayar QRIS</button>
+                <button onClick="{{ markPaid }}" style="height:44px;padding:0 18px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#15803D;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px" style-hover="height:44px;padding:0 18px;border-radius:10px;background:#DCFCE7;border:1px solid #bbf7d0;color:#15803D;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Tandai Lunas</button>
+                <button onClick="{{ sendReminder }}" style="height:44px;padding:0 18px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#2547F9;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px" style-hover="height:44px;padding:0 18px;border-radius:10px;background:#ECEFFE;border:1px solid #EDF0F6;color:#1B37C9;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0 0 .94l7.9 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.85 2.15-10.94 10.94"/></svg>Kirim Reminder</button>
+                <button onClick="{{ voidBill }}" style="height:44px;padding:0 18px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#B91C1C;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px" style-hover="height:44px;padding:0 18px;border-radius:10px;background:#FEE2E2;border:1px solid #fecaca;color:#B91C1C;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>Void</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- timeline -->
+          <div style="background:#fff;border:1px solid #EDF0F6;border-radius:14px;padding:22px;box-shadow:0 1px 2px rgba(16,24,64,.035)">
+            <div style="font-size:16px;font-weight:600;margin-bottom:18px">Riwayat Pembayaran</div>
+            <div style="display:flex;flex-direction:column;gap:0">
+              <div style="display:flex;gap:13px"><div style="display:flex;flex-direction:column;align-items:center"><span style="width:30px;height:30px;border-radius:50%;background:#DCFCE7;color:#15803D;display:flex;align-items:center;justify-content:center;flex:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span style="width:2px;flex:1;background:#EDF0F6;margin:4px 0"></span></div><div style="padding-bottom:18px"><div style="font-size:13.5px;font-weight:600">Tagihan dibuat</div><div style="font-size:12px;color:#94A3B8;font-weight:400;margin-top:2px">01 Jun 2026 · 08:00</div></div></div>
+              <div style="display:flex;gap:13px"><div style="display:flex;flex-direction:column;align-items:center"><span style="width:30px;height:30px;border-radius:50%;background:#ECEFFE;color:#2547F9;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.64-.63l-19 6.5a.5.5 0 0 0 0 .94l7.9 3.2a2 2 0 0 1 1.1 1.1z"/></svg></span><span style="width:2px;flex:1;background:#EDF0F6;margin:4px 0"></span></div><div style="padding-bottom:18px"><div style="font-size:13.5px;font-weight:600">Reminder WhatsApp terkirim</div><div style="font-size:12px;color:#94A3B8;font-weight:400;margin-top:2px">03 Jun 2026 · 09:15</div></div></div>
+              <div style="display:flex;gap:13px"><div style="display:flex;flex-direction:column;align-items:center"><span style="width:30px;height:30px;border-radius:50%;background:#FEE2E2;color:#B91C1C;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span></div><div><div style="font-size:13.5px;font-weight:600">Reminder lewat tempo</div><div style="font-size:12px;color:#94A3B8;font-weight:400;margin-top:2px">11 Jun 2026 · 08:00</div></div></div>
+            </div>
+            <div style="margin-top:18px;padding:13px 15px;background:#FEF3C7;border-radius:11px;display:flex;gap:10px;align-items:flex-start"><span style="color:#B45309;display:flex;flex:none;margin-top:1px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></span><div style="font-size:12.5px;color:#92400e;font-weight:500;line-height:1.5">Pelanggan belum melakukan pembayaran. Bagikan link tagihan publik atau kirim ulang reminder.</div></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </main>
+  </div>
+
+  <!-- QRIS OVERLAY -->
+  <sc-if value="{{ showQris }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(4,25,51,.55);z-index:80;display:flex;align-items:center;justify-content:center;padding:24px" onClick="{{ closeQris }}">
+    <div style="width:400px;max-width:100%;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(16,24,64,.14);animation:nvpop .2s ease">
+      <div style="padding:18px 22px;background:#2547F9;color:#fff;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">QRIS</span><div><div style="font-size:15px;font-weight:600">Pembayaran QRIS</div><div style="font-size:11.5px;color:rgba(255,255,255,.85);font-weight:400">{{ sel.no }}</div></div></div><button onClick="{{ closeQris }}" style="width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div style="padding:24px;text-align:center">
+        <div style="font-size:12.5px;color:#64748B;font-weight:500">Total Pembayaran</div>
+        <div style="font-size:30px;font-weight:700;letter-spacing:-.5px;margin:2px 0 18px">{{ selAmountText }}</div>
+        <div style="display:inline-block;padding:16px;background:#fff;border:1px solid #EDF0F6;border-radius:16px;box-shadow:0 2px 8px rgba(16,24,64,.04)">
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            <rect width="200" height="200" fill="#fff"/>
+            <sc-for list="{{ qrCells }}" as="c" hint-placeholder-count="60"><rect x="{{ c.x }}" y="{{ c.y }}" width="{{ c.s }}" height="{{ c.s }}" fill="#041933"/></sc-for>
+            <g fill="none" stroke="#041933"><rect x="0" y="0" width="48" height="48" stroke-width="8"/><rect x="16" y="16" width="16" height="16" fill="#041933" stroke="none"/></g>
+            <g fill="none" stroke="#041933"><rect x="152" y="0" width="48" height="48" stroke-width="8"/><rect x="168" y="16" width="16" height="16" fill="#041933" stroke="none"/></g>
+            <g fill="none" stroke="#041933"><rect x="0" y="152" width="48" height="48" stroke-width="8"/><rect x="16" y="168" width="16" height="16" fill="#041933" stroke="none"/></g>
+            <rect x="80" y="80" width="40" height="40" rx="8" fill="#2547F9"/>
+            <path d="M90 110 V92 L110 110 V90" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 4px;font-size:13px;color:#64748B;font-weight:500"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Berlaku <b style="color:#B45309;font-weight:700;font-variant-numeric:tabular-nums">{{ qrisTime }}</b></div>
+        <p style="margin:6px 0 18px;font-size:12.5px;color:#94A3B8;font-weight:400">Scan dengan aplikasi e-wallet / m-banking apa pun</p>
+        <button onClick="{{ cekStatus }}" style="width:100%;height:46px;border-radius:11px;background:#2547F9;color:#fff;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="width:100%;height:46px;border-radius:11px;background:#1B37C9;color:#fff;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>Cek Status Pembayaran</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- DELETE MODAL -->
+  <sc-if value="{{ showDelete }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(4,25,51,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:24px" onClick="{{ closeDelete }}">
+    <div style="width:380px;max-width:100%;background:#fff;border-radius:18px;padding:28px;text-align:center;box-shadow:0 12px 32px rgba(16,24,64,.14);animation:nvpop .2s ease">
+      <div style="width:62px;height:62px;border-radius:50%;background:#FEE2E2;color:#B91C1C;display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+      <h3 style="margin:0;font-size:19px;font-weight:600">Hapus pelanggan ini?</h3>
+      <p style="margin:8px 0 22px;font-size:13.5px;color:#64748B;font-weight:400;line-height:1.5">Data <b style="color:#041933;font-weight:600">{{ deleteName }}</b> akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.</p>
+      <div style="display:flex;gap:10px"><button onClick="{{ closeDelete }}" style="flex:1;height:44px;border-radius:10px;background:#fff;border:1px solid #EDF0F6;color:#475569;font-size:14px;font-weight:600" style-hover="flex:1;height:44px;border-radius:10px;background:#F7F8FD;border:1px solid #EDF0F6;color:#041933;font-size:14px;font-weight:600">Batal</button><button onClick="{{ confirmDelete }}" style="flex:1;height:44px;border-radius:10px;background:#EF4444;color:#fff;font-size:14px;font-weight:600" style-hover="flex:1;height:44px;border-radius:10px;background:#dc2626;color:#fff;font-size:14px;font-weight:600">Ya, hapus</button></div>
+    </div>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ PUBLIC BILL (MOBILE) ============ -->
+<sc-if value="{{ isPublic }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;background:#EAF0F7;display:flex;flex-direction:column;align-items:center;padding:24px 16px" data-screen-label="Tagihan Publik">
+  <!-- demo state switch -->
+  <div style="display:flex;gap:4px;padding:4px;background:#fff;border:1px solid #EDF0F6;border-radius:10px;margin-bottom:18px">
+    <button onClick="{{ setPublicUnpaid }}" style="height:30px;padding:0 14px;border-radius:7px;font-size:12px;font-weight:600;background:{{ pubUnpaidBg }};color:{{ pubUnpaidColor }}">Belum Bayar</button>
+    <button onClick="{{ setPublicPaid }}" style="height:30px;padding:0 14px;border-radius:7px;font-size:12px;font-weight:600;background:{{ pubPaidBg }};color:{{ pubPaidColor }}">Lunas</button>
+  </div>
+
+  <div style="width:400px;max-width:100%;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 24px rgba(16,24,64,.09)">
+    <!-- gradient header -->
+    <div style="background:#2547F9;padding:26px 24px 30px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1)"></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="34" height="34" viewBox="0 0 48 48" fill="none"><g stroke="rgba(255,255,255,.85)" stroke-width="3" stroke-linecap="round" fill="none"><path d="M27 12 a7 7 0 0 1 11 0"/><path d="M30.5 16 a3.2 3.2 0 0 1 4 0"/></g><path d="M10 38 V14 L33 37 V13" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="10" cy="38" r="3.6" fill="#9bf3ff"/><circle cx="33" cy="13" r="3.6" fill="#fff"/></svg>
+        <div><div style="font-size:18px;font-weight:600;letter-spacing:-.3px">{{ company }}</div><div style="font-size:11.5px;color:rgba(255,255,255,.85);font-weight:400">RT-RW Net Sukamaju</div></div>
+      </div>
+      <div style="margin-top:22px;font-size:12.5px;color:rgba(255,255,255,.85);font-weight:400">Tagihan Internet · {{ sel.period }}</div>
+      <div style="font-size:34px;font-weight:700;letter-spacing:-1px;margin-top:2px">{{ selAmountText }}</div>
+    </div>
+
+    <div style="padding:22px 24px">
+      <!-- detail rows -->
+      <div style="display:flex;flex-direction:column;gap:0;border:1px solid #EDF0F6;border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #F1F5F9"><span style="font-size:13px;color:#64748B;font-weight:400">No. Tagihan</span><span style="font-size:13px;font-weight:600">{{ sel.no }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #F1F5F9"><span style="font-size:13px;color:#64748B;font-weight:400">Pelanggan</span><span style="font-size:13px;font-weight:600">{{ sel.name }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #F1F5F9"><span style="font-size:13px;color:#64748B;font-weight:400">Paket</span><span style="font-size:13px;font-weight:600">{{ sel.pkg }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:13px 16px"><span style="font-size:13px;color:#64748B;font-weight:400">Jatuh Tempo</span><span style="font-size:13px;font-weight:600">{{ sel.due }}</span></div>
+      </div>
+
+      <!-- PAID variant -->
+      <sc-if value="{{ publicPaid }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:8px 0 6px">
+          <div style="position:relative;width:118px;height:118px;margin:0 auto 12px">
+            <div style="position:absolute;inset:0;border:4px solid #15803D;border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg);box-shadow:0 0 0 6px rgba(21,128,61,.08)">
+              <span style="color:#15803D;display:flex"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </div>
+          </div>
+          <div style="font-size:22px;font-weight:700;color:#15803D;letter-spacing:1px">LUNAS</div>
+          <p style="margin:6px 0 18px;font-size:13px;color:#64748B;font-weight:400">Dibayar pada 09 Jun 2026 · via QRIS</p>
+          <button onClick="{{ downloadReceipt }}" style="width:100%;height:50px;border-radius:12px;background:#15803D;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 3px 10px rgba(21,128,61,.16)" style-hover="width:100%;height:50px;border-radius:12px;background:#166534;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 3px 10px rgba(21,128,61,.16)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Unduh Struk</button>
+        </div>
+      </sc-if>
+
+      <!-- UNPAID variant -->
+      <sc-if value="{{ publicUnpaid }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center">
+          <div style="font-size:13px;color:#64748B;font-weight:500;margin-bottom:12px">Scan QRIS untuk membayar</div>
+          <div style="display:inline-block;padding:14px;background:#fff;border:1px solid #EDF0F6;border-radius:16px;box-shadow:0 2px 8px rgba(16,24,64,.04)">
+            <svg width="180" height="180" viewBox="0 0 200 200">
+              <rect width="200" height="200" fill="#fff"/>
+              <sc-for list="{{ qrCells }}" as="c" hint-placeholder-count="60"><rect x="{{ c.x }}" y="{{ c.y }}" width="{{ c.s }}" height="{{ c.s }}" fill="#041933"/></sc-for>
+              <g fill="none" stroke="#041933"><rect x="0" y="0" width="48" height="48" stroke-width="8"/><rect x="16" y="16" width="16" height="16" fill="#041933" stroke="none"/></g>
+              <g fill="none" stroke="#041933"><rect x="152" y="0" width="48" height="48" stroke-width="8"/><rect x="168" y="16" width="16" height="16" fill="#041933" stroke="none"/></g>
+              <g fill="none" stroke="#041933"><rect x="0" y="152" width="48" height="48" stroke-width="8"/><rect x="16" y="168" width="16" height="16" fill="#041933" stroke="none"/></g>
+              <rect x="80" y="80" width="40" height="40" rx="8" fill="#2547F9"/>
+              <path d="M90 110 V92 L110 110 V90" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 18px;font-size:12.5px;color:#64748B;font-weight:500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2547F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M9 12h6M12 9v6"/></svg>Dukung semua e-wallet & m-banking</div>
+          <button onClick="{{ setPublicPaid }}" style="width:100%;height:52px;border-radius:13px;background:#2547F9;color:#fff;font-size:15.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 3px 10px rgba(37,71,249,.16)" style-hover="width:100%;height:52px;border-radius:13px;background:#1B37C9;color:#fff;font-size:15.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 3px 10px rgba(37,71,249,.16)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M12 3h.01M12 16v.01M16 12h1M21 12v.01M12 21v-1M3 12h.01"/></svg>Bayar Sekarang</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+  <p style="margin:18px 0 0;font-size:12px;color:#94A3B8;font-weight:400;text-align:center">Dilindungi oleh {{ company }} · Pembayaran aman via QRIS</p>
+</div>
+</sc-if>
+
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;top:20px;right:20px;z-index:120;display:flex;align-items:center;gap:12px;min-width:280px;max-width:380px;background:#fff;border:1px solid #EDF0F6;border-radius:12px;padding:14px 16px;box-shadow:0 8px 22px rgba(16,24,64,.10);animation:nvtoast .3s cubic-bezier(.2,.9,.3,1);overflow:hidden">
+  <span style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ toastBar }}"></span>
+  <span style="width:34px;height:34px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ toastIconBg }};color:{{ toastIconColor }}">
+    <sc-if value="{{ toastIsError }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></sc-if>
+    <sc-if value="{{ toastIsInfo }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></sc-if>
+    <sc-if value="{{ toastIsSuccess }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+  </span>
+  <div style="flex:1;font-size:13.5px;font-weight:500;color:#041933;line-height:1.4">{{ toastMsg }}</div>
+  <button onClick="{{ closeToast }}" style="width:26px;height:26px;border-radius:7px;color:#94A3B8;flex:none;display:flex;align-items:center;justify-content:center" style-hover="width:26px;height:26px;border-radius:7px;color:#475569;flex:none;display:flex;align-items:center;justify-content:center;background:#F1F5F9"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;sidebarTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Putih&quot;,&quot;Navy&quot;],&quot;default&quot;:&quot;Putih&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;dashLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;],&quot;default&quot;:&quot;1&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;companyName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Netvia&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'login',
+    navy: false,
+    layout: 1,
+    collapsed: false,
+    custSearch: '',
+    billSearch: '',
+    pkgFilter: '',
+    statusFilter: '',
+    dropdown: null,
+    ddSearch: '',
+    formPkg: '',
+    formStatus: '',
+    formDue: '',
+    showDelete: null,
+    showQris: false,
+    qrisSeconds: 300,
+    publicPaid: false,
+    toast: null,
+    selectedBill: null,
+    editing: null,
+  };
+
+  componentDidMount() {
+    const t = this.props.sidebarTheme;
+    const l = Number(this.props.dashLayout || 1);
+    this.setState({ navy: t === 'Navy', layout: l || 1 });
+  }
+  componentWillUnmount() { clearInterval(this._qt); clearTimeout(this._tt); }
+
+  rp(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+  go(screen) { this.setState({ screen, dropdown: null }); try { window.scrollTo(0, 0); } catch (e) {} }
+  toast(type, msg) {
+    this.setState({ toast: { type, msg } });
+    clearTimeout(this._tt);
+    this._tt = setTimeout(() => this.setState({ toast: null }), 2800);
+  }
+  pick(field, value) { this.setState({ [field]: value, dropdown: null, ddSearch: '' }); }
+  toggleDd(id) { this.setState(s => ({ dropdown: s.dropdown === id ? null : id, ddSearch: '' })); }
+  openQris() {
+    this.setState({ showQris: true, qrisSeconds: 300 });
+    clearInterval(this._qt);
+    this._qt = setInterval(() => this.setState(s => {
+      if (s.qrisSeconds <= 1) { clearInterval(this._qt); return { qrisSeconds: 0 }; }
+      return { qrisSeconds: s.qrisSeconds - 1 };
+    }), 1000);
+  }
+  closeQris() { clearInterval(this._qt); this.setState({ showQris: false }); }
+
+  statusInfo(k) {
+    return ({
+      unpaid: { label: 'Belum bayar', color: '#B45309', bg: '#FEF3C7' },
+      overdue: { label: 'Lewat tempo', color: '#B91C1C', bg: '#FEE2E2' },
+      paid: { label: 'Lunas', color: '#15803D', bg: '#DCFCE7' },
+      void: { label: 'Void', color: '#64748B', bg: '#F1F5F9' },
+    })[k] || { label: k, color: '#64748B', bg: '#F1F5F9' };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const company = this.props.companyName || 'Netvia';
+
+    // ---- theme ----
+    const navy = s.navy;
+    const sbBg = navy ? '#041933' : '#FFFFFF';
+    const sbBorder = navy ? 'rgba(255,255,255,.07)' : '#EDF0F6';
+    const sbLogo = navy ? '#FFFFFF' : '#041933';
+    const sbMuted = navy ? '#7E93AD' : '#64748B';
+    const activeBg = navy ? 'rgba(37,71,249,.20)' : '#ECEFFE';
+    const activeColor = navy ? '#FFFFFF' : '#2547F9';
+    const hoverGhost = navy ? 'rgba(255,255,255,.04)' : '#F7F8FD';
+
+    const screen = s.screen;
+    const aDash = screen === 'dashboard';
+    const aCust = screen === 'customers' || screen === 'customerForm';
+    const aBills = screen === 'bills' || screen === 'billDetail';
+    const itc = (a) => ({ bg: a ? activeBg : 'transparent', color: a ? activeColor : sbMuted });
+
+    // ---- data ----
+    const packages = [
+      { name: 'Home 10 Mbps', price: 150000 },
+      { name: 'Home 20 Mbps', price: 200000 },
+      { name: 'Home 50 Mbps', price: 300000 },
+      { name: 'Business 100 Mbps', price: 750000 },
+    ];
+    const customersRaw = [
+      { code: 'NV-00125', name: 'Budi Santoso', wa: '0812-3456-7890', pkg: 'Home 20 Mbps', due: 15, status: 'paid' },
+      { code: 'NV-00126', name: 'Siti Nurhaliza', wa: '0813-9988-7766', pkg: 'Home 50 Mbps', due: 5, status: 'unpaid' },
+      { code: 'NV-00127', name: 'Agus Wijaya', wa: '0857-1122-3344', pkg: 'Business 100 Mbps', due: 10, status: 'overdue' },
+      { code: 'NV-00128', name: 'Dewi Lestari', wa: '0821-5566-7788', pkg: 'Home 10 Mbps', due: 20, status: 'paid' },
+      { code: 'NV-00129', name: 'Rizki Pratama', wa: '0852-4433-2211', pkg: 'Home 20 Mbps', due: 25, status: 'unpaid' },
+      { code: 'NV-00130', name: 'Maya Sari', wa: '0811-7766-5544', pkg: 'Home 50 Mbps', due: 1, status: 'paid' },
+      { code: 'NV-00131', name: 'Joko Susilo', wa: '0838-2211-9900', pkg: 'Home 10 Mbps', due: 8, status: 'overdue' },
+      { code: 'NV-00132', name: 'Indah Permata', wa: '0896-3344-5566', pkg: 'Business 100 Mbps', due: 12, status: 'paid' },
+    ];
+    const billsRaw = [
+      { no: 'INV/2026/06/0127', name: 'Agus Wijaya', pkg: 'Business 100 Mbps', period: 'Juni 2026', amount: 750000, due: '10 Jun 2026', status: 'overdue' },
+      { no: 'INV/2026/06/0126', name: 'Siti Nurhaliza', pkg: 'Home 50 Mbps', period: 'Juni 2026', amount: 300000, due: '05 Jun 2026', status: 'unpaid' },
+      { no: 'INV/2026/06/0129', name: 'Rizki Pratama', pkg: 'Home 20 Mbps', period: 'Juni 2026', amount: 200000, due: '25 Jun 2026', status: 'unpaid' },
+      { no: 'INV/2026/06/0125', name: 'Budi Santoso', pkg: 'Home 20 Mbps', period: 'Juni 2026', amount: 200000, due: '15 Jun 2026', status: 'paid' },
+      { no: 'INV/2026/06/0128', name: 'Dewi Lestari', pkg: 'Home 10 Mbps', period: 'Juni 2026', amount: 150000, due: '20 Jun 2026', status: 'paid' },
+      { no: 'INV/2026/06/0130', name: 'Maya Sari', pkg: 'Home 50 Mbps', period: 'Juni 2026', amount: 300000, due: '01 Jun 2026', status: 'paid' },
+      { no: 'INV/2026/05/0127', name: 'Agus Wijaya', pkg: 'Business 100 Mbps', period: 'Mei 2026', amount: 750000, due: '10 Mei 2026', status: 'void' },
+    ];
+
+    // ---- customers (filtered + handlers) ----
+    const cq = s.custSearch.toLowerCase();
+    const customers = customersRaw
+      .filter(c => (!s.pkgFilter || c.pkg === s.pkgFilter)
+        && (!s.statusFilter || c.status === s.statusFilter)
+        && (!cq || c.name.toLowerCase().includes(cq) || c.code.toLowerCase().includes(cq) || c.wa.includes(cq)))
+      .map(c => {
+        const si = this.statusInfo(c.status);
+        return { ...c, dueText: 'Setiap tgl ' + c.due, statusLabel: si.label, statusColor: si.color, statusBg: si.bg,
+          onEdit: () => { this.setState({ editing: c }); this.go('customerForm'); },
+          onDelete: () => this.setState({ showDelete: c.name }) };
+      });
+
+    // ---- bills (filtered + handlers) ----
+    const bq = s.billSearch.toLowerCase();
+    const bills = billsRaw
+      .filter(b => (!s.statusFilter || b.status === s.statusFilter)
+        && (!bq || b.name.toLowerCase().includes(bq) || b.no.toLowerCase().includes(bq)))
+      .map(b => {
+        const si = this.statusInfo(b.status);
+        return { ...b, amountText: this.rp(b.amount), statusLabel: si.label, statusColor: si.color, statusBg: si.bg,
+          onView: () => { this.setState({ selectedBill: b }); this.go('billDetail'); } };
+      });
+
+    const sel = s.selectedBill || billsRaw[0];
+    const selInfo = this.statusInfo(sel.status);
+
+    // ---- dashboard panels ----
+    const dueSoon = [
+      { name: 'Rizki Pratama', pkg: 'Home 20 Mbps', amount: 200000, when: '25 Jun · 4 hari lagi' },
+      { name: 'Indah Permata', pkg: 'Business 100 Mbps', amount: 750000, when: '12 Jun · 1 hari lagi' },
+      { name: 'Maya Sari', pkg: 'Home 50 Mbps', amount: 300000, when: '01 Jul · 10 hari lagi' },
+    ].map(d => ({ ...d, amountText: this.rp(d.amount), onRemind: () => this.toast('success', 'Reminder WhatsApp terkirim ke ' + d.name) }));
+    const overdue = [
+      { name: 'Agus Wijaya', pkg: 'Business 100 Mbps', amount: 750000, late: 'Telat 11 hari' },
+      { name: 'Siti Nurhaliza', pkg: 'Home 50 Mbps', amount: 300000, late: 'Telat 16 hari' },
+      { name: 'Joko Susilo', pkg: 'Home 10 Mbps', amount: 150000, late: 'Telat 13 hari' },
+    ].map(d => ({ ...d, amountText: this.rp(d.amount), onRemind: () => this.toast('success', 'Reminder WhatsApp terkirim ke ' + d.name) }));
+
+    // ---- chart ----
+    const rev = [142, 138, 151, 149, 160, 158, 166, 170, 175, 172, 181, 187];
+    const months = ['Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'];
+    const maxR = 200, baseY = 220, areaH = 190, slot = 760 / 12, bw = 26;
+    const chartBars = rev.map((v, i) => {
+      const h = (v / maxR) * areaH;
+      return { x: i * slot + (slot - bw) / 2, y: baseY - h, w: bw, h, month: months[i], cx: i * slot + slot / 2, cy: baseY - h };
+    });
+    const chartLine = chartBars.map(b => b.cx + ',' + b.cy).join(' ');
+    const chartArea = '0,' + baseY + ' ' + chartLine + ' 760,' + baseY;
+
+    // ---- dropdown options ----
+    let ddSource = [];
+    if (s.dropdown === 'pkgFilter') ddSource = [{ label: 'Semua Paket', value: '' }].concat(packages.map(p => ({ label: p.name, value: p.name })));
+    else if (s.dropdown === 'statusFilter') ddSource = [{ label: 'Semua Status', value: '' }, { label: 'Lunas', value: 'paid' }, { label: 'Belum bayar', value: 'unpaid' }, { label: 'Lewat tempo', value: 'overdue' }, { label: 'Void', value: 'void' }];
+    else if (s.dropdown === 'formPkg') ddSource = packages.map(p => ({ label: p.name + ' — ' + this.rp(p.price) + '/bln', value: p.name }));
+    else if (s.dropdown === 'formStatus') ddSource = [{ label: 'Aktif', value: 'Aktif' }, { label: 'Ditangguhkan', value: 'Ditangguhkan' }, { label: 'Berhenti', value: 'Berhenti' }];
+    else if (s.dropdown === 'formDue') ddSource = Array.from({ length: 28 }, (_, i) => ({ label: 'Setiap tanggal ' + (i + 1), value: String(i + 1) }));
+    const dq = s.ddSearch.toLowerCase();
+    const ddOptions = ddSource.filter(o => o.label.toLowerCase().includes(dq)).map(o => ({ ...o, onPick: () => this.pick(s.dropdown === 'pkgFilter' ? 'pkgFilter' : s.dropdown === 'statusFilter' ? 'statusFilter' : s.dropdown, o.value) }));
+
+    const pkgFilterLabel = s.pkgFilter || 'Semua Paket';
+    const statusFilterLabel = s.statusFilter ? this.statusInfo(s.statusFilter).label : 'Semua Status';
+    const formPkgLabel = s.formPkg || 'Pilih paket langganan';
+    const formStatusLabel = s.formStatus || 'Pilih status';
+    const formDueLabel = s.formDue ? ('Setiap tanggal ' + s.formDue) : 'Pilih tanggal jatuh tempo';
+
+    // ---- qris cells ----
+    const cells = [];
+    const N = 25, mod = 8;
+    const inFinder = (i, j) => (i < 7 && j < 7) || (i > 17 && j < 7) || (i < 7 && j > 17);
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      if (inFinder(i, j)) continue;
+      if (((i * 13 + j * 7 + i * j + 5) % 3) === 0 || ((i + j) % 5 === 0 && (i * j) % 2 === 0)) cells.push({ x: i * mod, y: j * mod, s: mod });
+    }
+
+    const editing = s.editing;
+    const isEdit = !!editing;
+
+    return {
+      company, screen,
+      isLogin: screen === 'login', isPublic: screen === 'public',
+      isApp: screen !== 'login' && screen !== 'public',
+      isDashboard: aDash, isCustomers: screen === 'customers', isCustomerForm: screen === 'customerForm',
+      isBills: screen === 'bills', isBillDetail: screen === 'billDetail',
+      navy, sbBg, sbBorder, sbLogo, sbMuted, activeColor,
+      collapsed: s.collapsed, showLabels: !s.collapsed,
+      sbWidth: s.collapsed ? '76px' : '260px',
+      navJustify: s.collapsed ? 'center' : 'flex-start',
+      themeDisplay: s.collapsed ? 'none' : 'block',
+      toggleSidebar: () => this.setState(x => ({ collapsed: !x.collapsed })),
+      navDashBg: itc(aDash).bg, navDashColor: itc(aDash).color, aDash,
+      navCustBg: itc(aCust).bg, navCustColor: itc(aCust).color, aCust,
+      navBillsBg: itc(aBills).bg, navBillsColor: itc(aBills).color, aBills,
+      navPkgBg: itc(false).bg, navPkgColor: itc(false).color,
+      navSetBg: itc(false).bg, navSetColor: itc(false).color,
+      layout: s.layout, isL1: s.layout === 1, isL2: s.layout === 2, isL3: s.layout === 3,
+      // toggles
+      setLight: () => this.setState({ navy: false }), setNavy: () => this.setState({ navy: true }),
+      setL1: () => this.setState({ layout: 1 }), setL2: () => this.setState({ layout: 2 }), setL3: () => this.setState({ layout: 3 }),
+      lightBtnBg: navy ? '#fff' : '#ECEFFE', lightBtnColor: navy ? '#64748B' : '#2547F9',
+      navyBtnBg: navy ? '#ECEFFE' : '#fff', navyBtnColor: navy ? '#2547F9' : '#64748B',
+      l1Bg: s.layout === 1 ? '#2547F9' : '#fff', l1Color: s.layout === 1 ? '#fff' : '#64748B',
+      l2Bg: s.layout === 2 ? '#2547F9' : '#fff', l2Color: s.layout === 2 ? '#fff' : '#64748B',
+      l3Bg: s.layout === 3 ? '#2547F9' : '#fff', l3Color: s.layout === 3 ? '#fff' : '#64748B',
+      // nav
+      goLogin: () => this.go('login'), goDashboard: () => this.go('dashboard'),
+      goCustomers: () => this.go('customers'), goBills: () => this.go('bills'),
+      goPublic: () => this.go('public'),
+      newCustomer: () => { this.setState({ editing: null, formPkg: '', formStatus: '', formDue: '' }); this.go('customerForm'); },
+      soon: () => this.toast('info', 'Halaman ini di luar cakupan demo prioritas'),
+      // data
+      packages, customers, bills,
+      custCount: customers.length, billCount: bills.length,
+      custSearch: s.custSearch, billSearch: s.billSearch,
+      onCustSearch: (e) => this.setState({ custSearch: e.target.value }),
+      onBillSearch: (e) => this.setState({ billSearch: e.target.value }),
+      dueSoon, overdue, chartBars, chartLine, chartArea,
+      // dropdowns
+      dropdown: s.dropdown, ddSearch: s.ddSearch, ddOptions,
+      onDdSearch: (e) => this.setState({ ddSearch: e.target.value }),
+      tgPkgFilter: () => this.toggleDd('pkgFilter'), tgStatusFilter: () => this.toggleDd('statusFilter'),
+      tgFormPkg: () => this.toggleDd('formPkg'), tgFormStatus: () => this.toggleDd('formStatus'), tgFormDue: () => this.toggleDd('formDue'),
+      ddPkgFilter: s.dropdown === 'pkgFilter', ddStatusFilter: s.dropdown === 'statusFilter',
+      ddFormPkg: s.dropdown === 'formPkg', ddFormStatus: s.dropdown === 'formStatus', ddFormDue: s.dropdown === 'formDue',
+      pkgFilterLabel, statusFilterLabel, formPkgLabel, formStatusLabel, formDueLabel,
+      formPkgSet: !!s.formPkg, formStatusSet: !!s.formStatus, formDueSet: !!s.formDue,
+      // form
+      isEdit, formTitle: isEdit ? 'Edit Pelanggan' : 'Tambah Pelanggan',
+      formName: isEdit ? editing.name : '', formWa: isEdit ? editing.wa : '',
+      saveCustomer: () => { this.go('customers'); this.toast('success', isEdit ? 'Perubahan pelanggan disimpan' : 'Pelanggan baru berhasil ditambahkan'); },
+      // bill detail
+      sel, selStatusLabel: selInfo.label, selStatusColor: selInfo.color, selStatusBg: selInfo.bg,
+      selAmountText: this.rp(sel.amount), selPaid: sel.status === 'paid', selVoid: sel.status === 'void',
+      markPaid: () => { this.toast('success', 'Tagihan ' + sel.no + ' ditandai lunas'); },
+      voidBill: () => { this.toast('info', 'Tagihan ' + sel.no + ' dibatalkan'); },
+      sendReminder: () => this.toast('success', 'Reminder WhatsApp terkirim ke ' + sel.name),
+      copyLink: () => this.toast('success', 'Link tagihan publik disalin'),
+      // qris
+      showQris: s.showQris, openQris: () => this.openQris(), closeQris: () => this.closeQris(),
+      qrisTime: String(Math.floor(s.qrisSeconds / 60)).padStart(2, '0') + ':' + String(s.qrisSeconds % 60).padStart(2, '0'),
+      cekStatus: () => this.toast('info', 'Menunggu pembayaran masuk…'),
+      qrCells: cells,
+      // public
+      publicPaid: s.publicPaid, publicUnpaid: !s.publicPaid,
+      setPublicUnpaid: () => this.setState({ publicPaid: false }), setPublicPaid: () => this.setState({ publicPaid: true }),
+      pubUnpaidBg: s.publicPaid ? '#fff' : '#ECEFFE', pubUnpaidColor: s.publicPaid ? '#64748B' : '#2547F9',
+      pubPaidBg: s.publicPaid ? '#DCFCE7' : '#fff', pubPaidColor: s.publicPaid ? '#15803D' : '#64748B',
+      payPublic: () => this.toast('info', 'Mengarahkan ke pembayaran QRIS…'),
+      downloadReceipt: () => this.toast('success', 'Struk pembayaran diunduh'),
+      // delete
+      showDelete: s.showDelete, deleteName: s.showDelete,
+      closeDelete: () => this.setState({ showDelete: null }),
+      confirmDelete: () => { const n = s.showDelete; this.setState({ showDelete: null }); this.toast('success', 'Data ' + n + ' berhasil dihapus'); },
+      // toast
+      toast: s.toast, toastMsg: s.toast ? s.toast.msg : '',
+      toastIsError: s.toast && s.toast.type === 'error', toastIsInfo: s.toast && s.toast.type === 'info',
+      toastIsSuccess: s.toast && s.toast.type === 'success',
+      toastBar: s.toast ? (s.toast.type === 'error' ? '#EF4444' : s.toast.type === 'info' ? '#2547F9' : '#15803D') : '#15803D',
+      toastIconBg: s.toast ? (s.toast.type === 'error' ? '#FEE2E2' : s.toast.type === 'info' ? '#ECEFFE' : '#DCFCE7') : '#DCFCE7',
+      toastIconColor: s.toast ? (s.toast.type === 'error' ? '#B91C1C' : s.toast.type === 'info' ? '#2547F9' : '#15803D') : '#15803D',
+      closeToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

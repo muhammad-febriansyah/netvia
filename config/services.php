@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'pakasir' => [
+        'base_url' => env('PAKASIR_BASE_URL', 'https://pakasir.zone.id'),
+        'project' => env('PAKASIR_PROJECT'),
+        'api_key' => env('PAKASIR_API_KEY'),
+        'callback_url' => env('PAKASIR_CALLBACK_URL'),
+        // Minutes a generated QRIS stays valid before it must be regenerated.
+        'expiry_minutes' => (int) env('PAKASIR_EXPIRY_MINUTES', 60),
+    ],
+
 ];

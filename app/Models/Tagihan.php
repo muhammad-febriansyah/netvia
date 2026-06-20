@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\TagihanStatus;
+use Database\Factories\TagihanFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tagihan extends Model
 {
-    /** @use HasFactory<\Database\Factories\TagihanFactory> */
+    /** @use HasFactory<TagihanFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -25,6 +26,7 @@ class Tagihan extends Model
         'tanggal_jatuh_tempo',
         'status',
         'paid_at',
+        'void_reason',
         'public_token',
     ];
 
@@ -42,6 +44,14 @@ class Tagihan extends Model
             'paid_at' => 'datetime',
             'status' => TagihanStatus::class,
         ];
+    }
+
+    /**
+     * Public, tokenized URL for the customer-facing invoice page.
+     */
+    public function publicUrl(): string
+    {
+        return url('/tagihan-publik/'.$this->public_token);
     }
 
     /**

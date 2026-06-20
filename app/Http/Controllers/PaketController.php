@@ -109,10 +109,15 @@ class PaketController extends Controller
 
         if (auth()->user()?->can('paket.update')) {
             $editUrl = route('paket.edit', $paket);
+            $toggleLabel = $paket->is_active ? 'Nonaktifkan' : 'Aktifkan';
+            $toggleIcon = $paket->is_active ? 'toggle-right' : 'toggle-left';
             $buttons .= <<<HTML
                 <a href="{$editUrl}" class="btn-edit inline-flex items-center gap-1 text-blue-600">
                     <i data-lucide="pencil"></i> Edit
                 </a>
+                <button type="button" class="btn-toggle inline-flex items-center gap-1 text-slate-600" data-id="{$paket->id}" title="{$toggleLabel}">
+                    <i data-lucide="{$toggleIcon}"></i> {$toggleLabel}
+                </button>
             HTML;
         }
 

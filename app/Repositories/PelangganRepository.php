@@ -2,11 +2,25 @@
 
 namespace App\Repositories;
 
+use App\Enums\PelangganStatus;
 use App\Models\Pelanggan;
+use App\Models\Tagihan;
 use Illuminate\Database\Eloquent\Builder;
 
 class PelangganRepository
 {
+    /**
+     * Active pelanggan eligible for billing, with paket eager loaded.
+     *
+     * @return Builder<Pelanggan>
+     */
+    public function activeWithPaket(): Builder
+    {
+        return Pelanggan::query()
+            ->where('status', PelangganStatus::Aktif)
+            ->with('paket');
+    }
+
     /**
      * Base query for DataTables list, eager loading the paket relation.
      *
@@ -61,7 +75,7 @@ class PelangganRepository
     /**
      * Latest tagihan and outstanding total for the customer detail page.
      *
-     * @return array{terakhir: \App\Models\Tagihan|null, outstanding: int}
+     * @return array{terakhir: Tagihan|null, outstanding: int}
      */
     public function ringkasanTagihan(Pelanggan $pelanggan): array
     {

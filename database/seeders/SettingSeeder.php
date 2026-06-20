@@ -36,6 +36,10 @@ class SettingSeeder extends Seeder
             // WhatsApp
             'wa_driver' => 'cloud_api',
             'wa_nomor_pengirim' => '',
+
+            // Email
+            'email_from_name' => 'Netvia Net',
+            'email_from_address' => '',
         ];
 
         foreach ($settings as $key => $value) {
