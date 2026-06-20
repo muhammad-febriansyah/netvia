@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use App\Enums\PelangganStatus;
+use Database\Factories\PelangganFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pelanggan extends Model
 {
-    /** @use HasFactory<\Database\Factories\PelangganFactory> */
+    /** @use HasFactory<PelangganFactory> */
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -61,5 +63,23 @@ class Pelanggan extends Model
     public function notifikasiLogs(): HasMany
     {
         return $this->hasMany(NotifikasiLog::class);
+    }
+
+    /**
+     * @return HasMany<PemutusanLangganan, $this>
+     */
+    public function pemutusanLangganans(): HasMany
+    {
+        return $this->hasMany(PemutusanLangganan::class);
+    }
+
+    /**
+     * The customer login account linked to this pelanggan, if any.
+     *
+     * @return HasOne<User, $this>
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
     }
 }

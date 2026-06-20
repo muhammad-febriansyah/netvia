@@ -16,8 +16,8 @@ beforeEach(function () {
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
-    $this->finance = User::factory()->create();
-    $this->finance->assignRole('finance');
+    $this->customer = User::factory()->create();
+    $this->customer->assignRole('customer');
 });
 
 it('lists pelanggans via the server-side datatable endpoint', function () {
@@ -158,10 +158,10 @@ it('soft deletes a pelanggan', function () {
     expect($pelanggan->fresh()->trashed())->toBeTrue();
 });
 
-it('forbids finance from creating a pelanggan', function () {
+it('forbids customer from creating a pelanggan', function () {
     $paket = Paket::factory()->create();
 
-    $this->actingAs($this->finance)
+    $this->actingAs($this->customer)
         ->post(route('pelanggan.store'), [
             'nama' => 'Budi',
             'no_wa' => '081234567890',

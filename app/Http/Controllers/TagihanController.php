@@ -118,9 +118,11 @@ class TagihanController extends Controller
         $url = route('tagihan.show', $tagihan);
 
         return <<<HTML
-            <a href="{$url}" class="inline-flex items-center gap-1 text-brand">
-                <i data-lucide="eye"></i> Detail
-            </a>
+            <div class="flex items-center justify-end gap-2">
+                <a href="{$url}" class="btn-act btn-act--view">
+                    <i data-lucide="eye"></i> Detail
+                </a>
+            </div>
         HTML;
     }
 }

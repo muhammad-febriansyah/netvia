@@ -112,10 +112,10 @@ class PaketController extends Controller
             $toggleLabel = $paket->is_active ? 'Nonaktifkan' : 'Aktifkan';
             $toggleIcon = $paket->is_active ? 'toggle-right' : 'toggle-left';
             $buttons .= <<<HTML
-                <a href="{$editUrl}" class="btn-edit inline-flex items-center gap-1 text-blue-600">
+                <a href="{$editUrl}" class="btn-act btn-act--edit">
                     <i data-lucide="pencil"></i> Edit
                 </a>
-                <button type="button" class="btn-toggle inline-flex items-center gap-1 text-slate-600" data-id="{$paket->id}" title="{$toggleLabel}">
+                <button type="button" class="btn-toggle btn-act btn-act--neutral" data-id="{$paket->id}" title="{$toggleLabel}">
                     <i data-lucide="{$toggleIcon}"></i> {$toggleLabel}
                 </button>
             HTML;
@@ -123,12 +123,12 @@ class PaketController extends Controller
 
         if (auth()->user()?->can('paket.delete')) {
             $buttons .= <<<HTML
-                <button type="button" class="btn-delete inline-flex items-center gap-1 text-red-600" data-id="{$paket->id}">
+                <button type="button" class="btn-delete btn-act btn-act--delete" data-id="{$paket->id}">
                     <i data-lucide="trash-2"></i> Hapus
                 </button>
             HTML;
         }
 
-        return "<div class=\"flex items-center gap-3\">{$buttons}</div>";
+        return "<div class=\"flex items-center gap-2\">{$buttons}</div>";
     }
 }

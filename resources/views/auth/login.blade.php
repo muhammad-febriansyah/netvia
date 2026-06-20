@@ -1,9 +1,13 @@
 <x-layouts.guest title="Masuk">
     <div class="mb-6 flex items-center gap-2.5">
-        <span class="flex size-11 items-center justify-center rounded-xl bg-brand-soft">
-            <x-brand-logo :size="26" />
-        </span>
-        <span class="text-[19px] font-semibold tracking-tight text-ink lg:hidden">{{ config('app.name', 'Netvia') }}</span>
+        @if (! empty($site['logo']))
+            <img src="{{ Storage::url($site['logo']) }}" alt="{{ $site['nama_perusahaan'] }}"
+                class="max-h-11 w-auto max-w-[170px] object-contain">
+        @else
+            <span class="flex size-11 items-center justify-center rounded-xl bg-brand-soft">
+                <x-brand-logo :size="26" />
+            </span>
+        @endif
     </div>
 
     <h1 class="text-[24px] font-semibold tracking-tight text-ink">Masuk ke dasbor</h1>
@@ -80,6 +84,11 @@
             <svg data-spinner class="hidden size-[18px] animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
         </button>
     </form>
+
+    <p class="mt-6 text-center text-[13px] text-muted">
+        Belum punya akun?
+        <a href="{{ route('register') }}" class="font-semibold text-brand hover:underline">Daftar langganan</a>
+    </p>
 
     @push('scripts')
         <script>

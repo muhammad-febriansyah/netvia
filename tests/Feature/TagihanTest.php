@@ -17,8 +17,8 @@ beforeEach(function () {
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
-    $this->finance = User::factory()->create();
-    $this->finance->assignRole('finance');
+    $this->customer = User::factory()->create();
+    $this->customer->assignRole('customer');
 });
 
 it('lists tagihan via the datatable endpoint', function () {
@@ -130,16 +130,15 @@ it('queues an ad-hoc reminder', function () {
     Queue::assertPushed(KirimWhatsappNotifikasi::class);
 });
 
-it('forbids finance from generating or voiding', function () {
+it('forbids customer from generating or voiding tagihan', function () {
     $pelanggan = Pelanggan::factory()->create(['status' => 'aktif']);
     $tagihan = Tagihan::factory()->create(['status' => 'unpaid']);
 
-    $this->actingAs($this->finance)
+    $this->actingAs($this->customer)
         ->post(route('tagihan.generateManual'), ['pelanggan_id' => $pelanggan->id])
         ->assertForbidden();
 
-    // finance does have tagihan.void per matrix
-    $this->actingAs($this->finance)
+    $this->actingAs($this->customer)
         ->postJson(route('tagihan.void', $tagihan), ['alasan' => 'ok'])
-        ->assertOk();
+        ->assertForbidden();
 });

@@ -97,19 +97,19 @@ class NotifikasiController extends Controller
         $payload = e($log->payload ?? '');
         $error = e($log->error_message ?? '');
         $buttons = <<<HTML
-            <button type="button" class="btn-payload inline-flex items-center gap-1 text-brand" data-payload="{$payload}" data-error="{$error}">
+            <button type="button" class="btn-payload btn-act btn-act--view" data-payload="{$payload}" data-error="{$error}">
                 <i data-lucide="eye"></i> Lihat
             </button>
         HTML;
 
         if (auth()->user()?->can('notifikasi.kirim')) {
             $buttons .= <<<HTML
-                <button type="button" class="btn-resend inline-flex items-center gap-1 text-slate-600" data-id="{$log->id}">
+                <button type="button" class="btn-resend btn-act btn-act--send" data-id="{$log->id}">
                     <i data-lucide="send"></i> Kirim Ulang
                 </button>
             HTML;
         }
 
-        return "<div class=\"flex items-center justify-end gap-3\">{$buttons}</div>";
+        return "<div class=\"flex items-center justify-end gap-2\">{$buttons}</div>";
     }
 }

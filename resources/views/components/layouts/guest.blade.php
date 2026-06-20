@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Masuk' }} — {{ config('app.name', 'Netvia') }}</title>
+    <title>{{ $title ?? 'Masuk' }} — {{ $site['nama_perusahaan'] }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
@@ -21,8 +21,14 @@
             </div>
 
             <div class="relative flex items-center gap-3">
-                <x-brand-logo :size="42" class="[&_circle]:!fill-white/90 [&_path]:!stroke-white" />
-                <span class="text-2xl font-semibold tracking-tight">{{ config('app.name', 'Netvia') }}</span>
+                @if (! empty($site['logo']))
+                    <span class="inline-flex items-center rounded-xl bg-white/95 p-2.5 shadow-sm">
+                        <img src="{{ Storage::url($site['logo']) }}" alt="{{ $site['nama_perusahaan'] }}"
+                            class="max-h-10 w-auto max-w-[170px] object-contain">
+                    </span>
+                @else
+                    <x-brand-logo :size="42" class="[&_circle]:!fill-white/90 [&_path]:!stroke-white" />
+                @endif
             </div>
 
             <div class="relative max-w-md">

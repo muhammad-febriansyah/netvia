@@ -15,10 +15,10 @@ beforeEach(function () {
     $this->seed(RolePermissionSeeder::class);
 
     $this->superAdmin = User::factory()->create();
-    $this->superAdmin->assignRole('super_admin');
+    $this->superAdmin->assignRole('admin');
 
     $this->admin = User::factory()->create();
-    $this->admin->assignRole('admin');
+    $this->admin->assignRole('customer');
 });
 
 it('shows the settings page to a user who can view', function () {

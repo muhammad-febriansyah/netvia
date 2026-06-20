@@ -1,5 +1,5 @@
 <?php
 
-test('the application redirects the root path to the dashboard', function () {
-    $this->get('/')->assertRedirect(route('dashboard'));
+test('the application redirects the guest root path to login', function () {
+    $this->get('/')->assertRedirect(route('login'));
 });

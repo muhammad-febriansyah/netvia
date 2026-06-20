@@ -8,8 +8,7 @@
             <div class="mb-5 flex items-center justify-between">
                 <h2 class="text-sm font-semibold text-ink">Informasi Pelanggan</h2>
                 @can('pelanggan.update')
-                    <a href="{{ route('pelanggan.edit', $pelanggan) }}"
-                        class="inline-flex h-9 items-center gap-1.5 rounded-[10px] border border-line px-3.5 text-[13px] font-medium text-blue-600 hover:bg-canvas">
+                    <a href="{{ route('pelanggan.edit', $pelanggan) }}" class="btn-act btn-act--edit h-9 px-3.5 text-[13px]">
                         <i data-lucide="pencil"></i> Edit
                     </a>
                 @endcan
@@ -30,15 +29,18 @@
                 </div>
                 <div>
                     <dt class="text-muted">Status</dt>
-                    <dd class="mt-0.5">
-                        <span class="rounded-full px-2 py-1 text-xs font-medium
-                            {{ match ($pelanggan->status) {
-                                \App\Enums\PelangganStatus::Aktif => 'bg-green-100 text-green-700',
-                                \App\Enums\PelangganStatus::Isolir => 'bg-red-100 text-red-700',
-                                \App\Enums\PelangganStatus::Nonaktif => 'bg-gray-100 text-gray-600',
-                            } }}">
+                    <dd class="mt-0.5 flex items-center gap-2">
+                        <span class="rounded-full px-2 py-1 text-xs font-medium {{ $pelanggan->status->badgeClass() }}">
                             {{ $pelanggan->status->label() }}
                         </span>
+                        @if ($pelanggan->status === \App\Enums\PelangganStatus::Pending)
+                            @can('pelanggan.update')
+                                <form method="POST" action="{{ route('pelanggan.activate', $pelanggan) }}">
+                                    @csrf @method('PATCH')
+                                    <button type="submit" class="text-xs font-semibold text-brand hover:underline">Aktifkan</button>
+                                </form>
+                            @endcan
+                        @endif
                     </dd>
                 </div>
                 <div>

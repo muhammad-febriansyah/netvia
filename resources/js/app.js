@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import Cleave from 'cleave.js';
 import { createIcons, icons } from 'lucide';
 import 'datatables.net-dt';
+import 'datatables.net-dt/css/dataTables.dataTables.css';
 import select2 from 'select2';
 import 'select2/dist/css/select2.min.css';
 

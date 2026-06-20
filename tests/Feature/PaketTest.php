@@ -14,8 +14,8 @@ beforeEach(function () {
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
-    $this->finance = User::factory()->create();
-    $this->finance->assignRole('finance');
+    $this->customer = User::factory()->create();
+    $this->customer->assignRole('customer');
 });
 
 it('lists pakets via the server-side datatable endpoint', function () {
@@ -113,8 +113,8 @@ it('refuses to delete a paket still used by active pelanggan', function () {
     expect($paket->fresh()->trashed())->toBeFalse();
 });
 
-it('forbids finance from creating a paket', function () {
-    $this->actingAs($this->finance)
+it('forbids customer from creating a paket', function () {
+    $this->actingAs($this->customer)
         ->post(route('paket.store'), [
             'nama' => 'Home 20 Mbps',
             'harga' => 'Rp 150.000',

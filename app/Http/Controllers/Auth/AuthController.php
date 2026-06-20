@@ -28,7 +28,9 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard'));
+        $home = $request->user()->isCustomer() ? route('portal.dashboard') : route('dashboard');
+
+        return redirect()->intended($home);
     }
 
     /**

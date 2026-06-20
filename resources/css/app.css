@@ -50,6 +50,35 @@
     .nv-tab.is-active {
         @apply bg-brand-soft text-brand;
     }
+
+    /* ── Action buttons (tables, detail pages) ───────────────────────── */
+    .btn-act {
+        @apply inline-flex h-8 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-xs font-semibold ring-1 transition;
+    }
+    .btn-act svg {
+        @apply size-3.5;
+    }
+    .btn-act--view {
+        @apply bg-amber-50 text-amber-700 ring-amber-200 hover:bg-amber-100;
+    }
+    .btn-act--edit {
+        @apply bg-emerald-50 text-emerald-700 ring-emerald-200 hover:bg-emerald-100;
+    }
+    .btn-act--delete {
+        @apply bg-red-50 text-red-600 ring-red-200 hover:bg-red-100;
+    }
+    .btn-act--pay {
+        @apply bg-brand-soft text-brand ring-brand/15 hover:bg-brand/10;
+    }
+    .btn-act--send {
+        @apply bg-sky-50 text-sky-700 ring-sky-200 hover:bg-sky-100;
+    }
+    .btn-act--reset {
+        @apply bg-violet-50 text-violet-700 ring-violet-200 hover:bg-violet-100;
+    }
+    .btn-act--neutral {
+        @apply bg-slate-50 text-slate-600 ring-slate-200 hover:bg-slate-100;
+    }
 }
 
 /* ── Select2 → match the native inputs ────────────────────────────────── */
@@ -86,31 +115,129 @@
     border-radius: 8px;
 }
 
-/* ── DataTables → brand styling ───────────────────────────────────────── */
-table.dataTable thead th {
+/* ── DataTables 2.x → brand styling ───────────────────────────────────── */
+.dt-container {
+    font-size: 0.875rem;
+    color: var(--color-ink);
+}
+
+/* Top & bottom control rows */
+.dt-container .dt-layout-row {
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.dt-container .dt-layout-row:last-child {
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+}
+
+/* Length select + search input */
+.dt-container .dt-length,
+.dt-container .dt-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
     color: var(--color-muted);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--color-line);
 }
-table.dataTable tbody td {
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--color-line);
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: var(--color-brand) !important;
-    border-color: var(--color-brand) !important;
-    border-radius: 8px;
-    color: #fff !important;
-}
-.dataTables_wrapper .dataTables_filter input {
+.dt-container select.dt-input,
+.dt-container input.dt-input {
+    height: 40px;
     border: 1px solid var(--color-line);
-    border-radius: 8px;
-    padding: 0.4rem 0.7rem;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0 0.85rem;
+    font-size: 0.85rem;
+    color: var(--color-ink);
     outline: none;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
 }
-.dataTables_wrapper .dataTables_filter input:focus {
+.dt-container select.dt-input {
+    padding-right: 2rem;
+}
+.dt-container input.dt-input {
+    min-width: 240px;
+}
+.dt-container .dt-input:focus {
     border-color: var(--color-brand);
     box-shadow: 0 0 0 3px var(--color-brand-soft);
+}
+
+/* Table head */
+table.dataTable thead th {
+    text-align: left;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 0.75rem 0.85rem;
+    border-bottom: 1px solid var(--color-line);
+}
+
+/* Table body */
+table.dataTable tbody td {
+    font-size: 0.875rem;
+    padding: 0.9rem 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    vertical-align: middle;
+}
+table.dataTable tbody tr {
+    transition: background-color 0.12s;
+}
+table.dataTable tbody tr:hover > td {
+    background: var(--color-canvas);
+}
+table.dataTable tbody tr:last-child > td {
+    border-bottom: 0;
+}
+
+/* Info text */
+.dt-container .dt-info {
+    color: var(--color-muted);
+    font-size: 0.8125rem;
+}
+
+/* Pagination */
+.dt-container .dt-paging {
+    display: flex;
+    gap: 0.25rem;
+}
+.dt-container .dt-paging .dt-paging-button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.7rem;
+    border: 1px solid var(--color-line);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 0.8125rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+.dt-container .dt-paging .dt-paging-button:hover:not(.disabled):not(.current) {
+    background: var(--color-brand-soft);
+    border-color: var(--color-brand-soft);
+    color: var(--color-brand) !important;
+}
+.dt-container .dt-paging .dt-paging-button.current {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff !important;
+}
+.dt-container .dt-paging .dt-paging-button.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Processing indicator */
+.dt-container .dt-processing {
+    border: 1px solid var(--color-line);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(16, 24, 64, 0.08);
+    color: var(--color-muted);
 }

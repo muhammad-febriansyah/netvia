@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Dashboard' }} — {{ config('app.name', 'Netvia') }}</title>
+    <title>{{ $title ?? 'Dashboard' }} — {{ $site['nama_perusahaan'] }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     @if (session('success') || session('error'))
@@ -27,6 +27,8 @@
             'icon' => '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>'],
         ['route' => 'paket.index', 'label' => 'Paket', 'active' => 'paket.*', 'can' => 'paket.view',
             'icon' => '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'],
+        ['route' => 'pemutusan.index', 'label' => 'Pemutusan', 'active' => 'pemutusan.*', 'can' => 'pemutusan.kelola',
+            'icon' => '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>'],
         ['route' => 'notifikasi.index', 'label' => 'Notifikasi', 'active' => 'notifikasi.*', 'can' => 'notifikasi.view',
             'icon' => '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>'],
         ['route' => 'laporan.pendapatan', 'label' => 'Laporan', 'active' => 'laporan.*', 'can' => 'laporan.view',
@@ -44,9 +46,14 @@
 <div class="flex min-h-full">
     {{-- SIDEBAR --}}
     <aside class="sticky top-0 flex h-screen w-60 min-w-60 flex-none flex-col overflow-hidden border-r border-line bg-white px-3.5 py-5">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 px-2 pb-5.5 pt-1.5">
-            <x-brand-logo :size="34" />
-            <span class="text-xl font-semibold tracking-tight text-ink">{{ config('app.name', 'Netvia') }}</span>
+        <a href="{{ route('dashboard') }}" class="flex items-center justify-center gap-2.5 px-2 pb-6 pt-2">
+            @if (! empty($site['logo']))
+                <img src="{{ Storage::url($site['logo']) }}" alt="{{ $site['nama_perusahaan'] }}"
+                    class="max-h-14 w-auto max-w-[190px] object-contain">
+            @else
+                <x-brand-logo :size="48" />
+                <span class="text-[22px] font-semibold tracking-tight text-ink">{{ config('app.name', 'Netvia') }}</span>
+            @endif
         </a>
 
         <div class="px-2.5 pb-1.5 pt-2 text-[11px] font-semibold tracking-wide text-muted/80">MENU</div>

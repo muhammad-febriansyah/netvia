@@ -13,8 +13,8 @@ it('shows the login page to guests', function () {
         ->assertSee('Masuk');
 });
 
-it('redirects root to dashboard', function () {
-    $this->get('/')->assertRedirect(route('dashboard'));
+it('redirects guests at root to login', function () {
+    $this->get('/')->assertRedirect(route('login'));
 });
 
 it('redirects guests from the dashboard to login', function () {

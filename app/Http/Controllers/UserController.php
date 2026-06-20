@@ -107,7 +107,7 @@ class UserController extends Controller
      */
     private function roleOptions(): array
     {
-        return Role::query()->orderBy('name')->pluck('name')
+        return Role::query()->where('name', '!=', 'customer')->orderBy('name')->pluck('name')
             ->mapWithKeys(fn (string $name): array => [$name => (string) str($name)->headline()])
             ->all();
     }
@@ -125,11 +125,11 @@ class UserController extends Controller
         $toggleLabel = $user->is_active ? 'Nonaktifkan' : 'Aktifkan';
 
         return <<<HTML
-            <div class="flex items-center justify-end gap-3">
-                <a href="{$editUrl}" class="inline-flex items-center gap-1 text-blue-600"><i data-lucide="pencil"></i> Edit</a>
-                <button type="button" class="btn-reset inline-flex items-center gap-1 text-slate-600" data-id="{$user->id}"><i data-lucide="key-round"></i> Reset</button>
-                <button type="button" class="btn-toggle inline-flex items-center gap-1 text-slate-600" data-id="{$user->id}"><i data-lucide="power"></i> {$toggleLabel}</button>
-                <button type="button" class="btn-delete inline-flex items-center gap-1 text-red-600" data-id="{$user->id}"><i data-lucide="trash-2"></i> Hapus</button>
+            <div class="flex items-center justify-end gap-2">
+                <a href="{$editUrl}" class="btn-act btn-act--edit"><i data-lucide="pencil"></i> Edit</a>
+                <button type="button" class="btn-reset btn-act btn-act--reset" data-id="{$user->id}"><i data-lucide="key-round"></i> Reset</button>
+                <button type="button" class="btn-toggle btn-act btn-act--neutral" data-id="{$user->id}"><i data-lucide="power"></i> {$toggleLabel}</button>
+                <button type="button" class="btn-delete btn-act btn-act--delete" data-id="{$user->id}"><i data-lucide="trash-2"></i> Hapus</button>
             </div>
         HTML;
     }

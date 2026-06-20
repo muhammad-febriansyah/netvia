@@ -18,8 +18,8 @@ beforeEach(function () {
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
-    $this->finance = User::factory()->create();
-    $this->finance->assignRole('finance');
+    $this->customer = User::factory()->create();
+    $this->customer->assignRole('customer');
 });
 
 it('lists notifikasi logs via the datatable', function () {
@@ -94,15 +94,12 @@ it('requires a body when saving a template', function () {
         ->assertSessionHasErrors(['body' => 'Isi pesan wajib diisi.']);
 });
 
-it('forbids finance from resend and template management', function () {
-    $this->withoutVite();
+it('forbids customer from accessing notifikasi area', function () {
     $log = NotifikasiLog::factory()->create();
     $template = MessageTemplate::factory()->create();
 
-    $this->actingAs($this->finance)->postJson(route('notifikasi.resend', $log))->assertForbidden();
-    $this->actingAs($this->finance)->get(route('notifikasi.template'))->assertForbidden();
-    $this->actingAs($this->finance)->put(route('notifikasi.templateUpdate', $template), ['body' => 'x'])->assertForbidden();
-
-    // finance can still view the log list
-    $this->actingAs($this->finance)->get(route('notifikasi.index'))->assertOk();
+    $this->actingAs($this->customer)->get(route('notifikasi.index'))->assertForbidden();
+    $this->actingAs($this->customer)->postJson(route('notifikasi.resend', $log))->assertForbidden();
+    $this->actingAs($this->customer)->get(route('notifikasi.template'))->assertForbidden();
+    $this->actingAs($this->customer)->put(route('notifikasi.templateUpdate', $template), ['body' => 'x'])->assertForbidden();
 });

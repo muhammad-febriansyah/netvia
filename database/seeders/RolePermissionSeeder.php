@@ -25,33 +25,17 @@ class RolePermissionSeeder extends Seeder
             'laporan.view', 'laporan.export',
             'pengaturan.view', 'pengaturan.update',
             'user.view', 'user.create', 'user.update', 'user.delete',
+            'pemutusan.kelola',
         ];
 
         foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
         }
 
-        // super_admin gets all access via Gate::before bypass (no explicit assignment needed).
-        Role::firstOrCreate(['name' => 'super_admin', 'guard_name' => 'web']);
+        // Staff. Admin has full access via Gate::before bypass (no explicit assignment needed).
+        Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
 
-        $admin = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
-        $admin->syncPermissions([
-            'paket.view', 'paket.create', 'paket.update', 'paket.delete',
-            'pelanggan.view', 'pelanggan.create', 'pelanggan.update', 'pelanggan.delete',
-            'tagihan.view', 'tagihan.create', 'tagihan.update', 'tagihan.void', 'tagihan.generate',
-            'pembayaran.view', 'pembayaran.konfirmasi', 'pembayaran.create_qris',
-            'notifikasi.view', 'notifikasi.kirim', 'notifikasi.template',
-            'laporan.view', 'laporan.export',
-        ]);
-
-        $finance = Role::firstOrCreate(['name' => 'finance', 'guard_name' => 'web']);
-        $finance->syncPermissions([
-            'paket.view',
-            'pelanggan.view',
-            'tagihan.view', 'tagihan.void',
-            'pembayaran.view', 'pembayaran.konfirmasi', 'pembayaran.create_qris',
-            'notifikasi.view',
-            'laporan.view', 'laporan.export',
-        ]);
+        // Customer (pelanggan self-service portal). Access is gated by role, not permissions.
+        Role::firstOrCreate(['name' => 'customer', 'guard_name' => 'web']);
     }
 }

@@ -15,8 +15,8 @@ beforeEach(function () {
     $this->admin = User::factory()->create();
     $this->admin->assignRole('admin');
 
-    $this->finance = User::factory()->create();
-    $this->finance->assignRole('finance');
+    $this->customer = User::factory()->create();
+    $this->customer->assignRole('customer');
 });
 
 it('shows the four report index pages', function (string $route) {
@@ -95,8 +95,8 @@ it('forbids users without laporan.view', function () {
         ->assertForbidden();
 });
 
-it('lets finance access reports', function () {
-    $this->actingAs($this->finance)
+it('forbids customer from accessing reports', function () {
+    $this->actingAs($this->customer)
         ->get(route('laporan.pelanggan'))
-        ->assertSuccessful();
+        ->assertForbidden();
 });

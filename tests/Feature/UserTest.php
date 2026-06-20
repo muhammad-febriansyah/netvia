@@ -11,10 +11,10 @@ beforeEach(function () {
     $this->seed(RolePermissionSeeder::class);
 
     $this->superAdmin = User::factory()->create();
-    $this->superAdmin->assignRole('super_admin');
+    $this->superAdmin->assignRole('admin');
 
     $this->admin = User::factory()->create();
-    $this->admin->assignRole('admin');
+    $this->admin->assignRole('customer');
 });
 
 it('lists users via the datatable', function () {
@@ -27,17 +27,17 @@ it('lists users via the datatable', function () {
 it('creates a user with a role and hashed password', function () {
     $this->actingAs($this->superAdmin)
         ->post(route('user.store'), [
-            'name' => 'Finance Staff',
-            'email' => 'finance@netvia.id',
+            'name' => 'Staff Baru',
+            'email' => 'staff@netvia.id',
             'password' => 'rahasia123',
-            'role' => 'finance',
+            'role' => 'admin',
             'is_active' => '1',
         ])
         ->assertRedirect(route('user.index'));
 
-    $user = User::where('email', 'finance@netvia.id')->first();
+    $user = User::where('email', 'staff@netvia.id')->first();
     expect($user)->not->toBeNull()
-        ->and($user->hasRole('finance'))->toBeTrue()
+        ->and($user->hasRole('admin'))->toBeTrue()
         ->and(Hash::check('rahasia123', $user->password))->toBeTrue();
 });
 
@@ -61,14 +61,14 @@ it('updates a user and keeps the password when blank', function () {
             'name' => 'Updated Name',
             'email' => $user->email,
             'password' => '',
-            'role' => 'finance',
+            'role' => 'admin',
             'is_active' => '1',
         ])
         ->assertRedirect(route('user.index'));
 
     $user->refresh();
     expect($user->name)->toBe('Updated Name')
-        ->and($user->hasRole('finance'))->toBeTrue()
+        ->and($user->hasRole('admin'))->toBeTrue()
         ->and(Hash::check('original1', $user->password))->toBeTrue();
 });
 

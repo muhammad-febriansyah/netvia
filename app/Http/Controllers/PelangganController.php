@@ -104,13 +104,17 @@ class PelangganController extends Controller
         ]);
     }
 
+    public function activate(Pelanggan $pelanggan, UpdatePelangganAction $action): RedirectResponse
+    {
+        $action->execute($pelanggan, ['status' => PelangganStatus::Aktif->value]);
+
+        return back()->with('success', 'Pelanggan berhasil diaktifkan.');
+    }
+
     private function statusBadge(Pelanggan $pelanggan): string
     {
-        [$classes, $label] = match ($pelanggan->status) {
-            PelangganStatus::Aktif => ['bg-green-100 text-green-700', 'Aktif'],
-            PelangganStatus::Isolir => ['bg-red-100 text-red-700', 'Isolir'],
-            PelangganStatus::Nonaktif => ['bg-gray-100 text-gray-600', 'Nonaktif'],
-        };
+        $classes = $pelanggan->status->badgeClass();
+        $label = e($pelanggan->status->label());
 
         return "<span class=\"px-2 py-1 text-xs font-medium rounded-full {$classes}\">{$label}</span>";
     }
@@ -121,7 +125,7 @@ class PelangganController extends Controller
         $showUrl = route('pelanggan.show', $pelanggan);
 
         $buttons .= <<<HTML
-            <a href="{$showUrl}" class="btn-detail inline-flex items-center gap-1 text-gray-600">
+            <a href="{$showUrl}" class="btn-act btn-act--view">
                 <i data-lucide="eye"></i> Detail
             </a>
         HTML;
@@ -129,7 +133,7 @@ class PelangganController extends Controller
         if (auth()->user()?->can('pelanggan.update')) {
             $editUrl = route('pelanggan.edit', $pelanggan);
             $buttons .= <<<HTML
-                <a href="{$editUrl}" class="btn-edit inline-flex items-center gap-1 text-blue-600">
+                <a href="{$editUrl}" class="btn-act btn-act--edit">
                     <i data-lucide="pencil"></i> Edit
                 </a>
             HTML;
@@ -137,12 +141,12 @@ class PelangganController extends Controller
 
         if (auth()->user()?->can('pelanggan.delete')) {
             $buttons .= <<<HTML
-                <button type="button" class="btn-delete inline-flex items-center gap-1 text-red-600" data-id="{$pelanggan->id}">
+                <button type="button" class="btn-delete btn-act btn-act--delete" data-id="{$pelanggan->id}">
                     <i data-lucide="trash-2"></i> Hapus
                 </button>
             HTML;
         }
 
-        return "<div class=\"flex items-center gap-3\">{$buttons}</div>";
+        return "<div class=\"flex items-center gap-2\">{$buttons}</div>";
     }
 }
